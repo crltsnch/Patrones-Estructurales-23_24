@@ -58,7 +58,7 @@ class Menu(ABC):
         pass
 
 
-class Leaf(Menu):
+class Entrante(Menu):
     """
     The Leaf class represents the end objects of a composition. A leaf can't
     have any children.
@@ -67,8 +67,17 @@ class Leaf(Menu):
     objects only delegate to their sub-components.
     """
 
-    def operation(self) -> str:
-        return "Leaf"
+    def nombre(self) -> str:
+        entrantes = ["salsa cesar", "alitas de pollo a la parrilla", "nachos", "mini calzones", "rollitos de primavera caprese"]
+        entrante = input(f"Elige un entrante de  {entrantes}: ")
+        return entrante
+    
+    def precio(self) -> float:
+        return 
+    
+    def id(self) -> int:
+
+
 
 
 class Composite(Menu):
