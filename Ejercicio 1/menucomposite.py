@@ -138,26 +138,16 @@ def client_code(components: List[Menu]) -> None:   #menu simple
 
 
 if __name__ == "__main__":
-    # This way the client code can support the simple leaf components...
-    simple = [Entrante(), Pizza()]
-    print("Client: I've got a simple component:")
-    client_code(simple)
-    print("\n")
+    entrante = Entrante()
+    pizza = Pizza()
 
-    # ...as well as the complex composites.
-    tree = Composite()   #menu compuesto con menus simples
+    print("Cliente: Elige tu comida:")
+    entrante.nombre()
+    pizza.nombre()
 
-    branch1 = Composite()
-    branch1.add(Entrante())
-    branch1.add(Pizza())
+    print(f"Nombre del entrante: {entrante.nombre()}")
+    print(f"Nombre de la pizza: {pizza.nombre()}")
 
-    branch2 = Composite()
-    branch2.add(Entrante())
-    branch2.add(Pizza())
+    total_precio = entrante.precio() + pizza.precio()
+    print(f"Precio total: {total_precio}")
 
-    tree.add(branch1)
-    tree.add(branch2)
-
-    print("Client: Now I've got a composite tree:")
-    client_code(tree)
-    print("\n")
