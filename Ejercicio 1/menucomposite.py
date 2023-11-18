@@ -53,6 +53,7 @@ class Entrante(Menu):
     
     def precio(self) -> float:
         precios = [3.5, 5.5, 6.5, 4.5, 7.5]
+        entrantes = ["salsa cesar", "alitas de pollo a la parrilla", "nachos", "mini calzones", "rollitos de primavera caprese"]
         index = entrantes.index(self.nombre_elegido)
         return precios[index]
 
@@ -99,6 +100,9 @@ class Composite(Menu):
 
     def is_composite(self) -> bool:
         return True
+    
+    def nombre(self) -> str:
+        return "Menu"
 
     def precio(self) -> float:
         """
@@ -128,13 +132,14 @@ if __name__ == "__main__":
     entrante = Entrante()
     pizza = Pizza()
 
-    print("Cliente: Elige tu comida:")
-    entrante.nombre()
-    pizza.nombre()
+    print("Elige tu comida:")
+    client_code(entrante)
+    client_code(pizza)
 
-    print(f"Nombre del entrante: {entrante.nombre()}")
-    print(f"Nombre de la pizza: {pizza.nombre()}")
+    menu = Composite()
+    menu.add(entrante)
+    menu.add(pizza)
 
-    total_precio = entrante.precio() + pizza.precio()
-    print(f"Precio total: {total_precio}")
+    print("Cliente: Ahora tengo un menú:")
+    client_code(menu)
 
