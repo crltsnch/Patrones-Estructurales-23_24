@@ -6,32 +6,13 @@ import pandas as pd
 data = pd.read_csv('/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estructurales-23_24/Ejercicio 1/data/data_final.csv', sep=';', encoding='ISO-8859-1')
 
 class Menu(ABC):
-    """
-    The base Component class declares common operations for both simple and
-    complex objects of a composition.
-    """
-
     @property
     def parent(self) -> Menu:
         return self._parent
 
     @parent.setter
     def parent(self, parent: Menu):
-        """
-        Optionally, the base Component can declare an interface for setting and
-        accessing a parent of the component in a tree structure. It can also
-        provide some default implementation for these methods.
-        """
-
         self._parent = parent
-
-    """
-    In some cases, it would be beneficial to define the child-management
-    operations right in the base Component class. This way, you won't need to
-    expose any concrete component classes to the client code, even during the
-    object tree assembly. The downside is that these methods will be empty for
-    the leaf-level components.
-    """
 
     def add(self, component: Menu) -> None:
         pass
@@ -44,15 +25,9 @@ class Menu(ABC):
         You can provide a method that lets the client code figure out whether a
         component can bear children.
         """
-
         return False
-
-    @abstractmethod
-    def nombre(self) -> str:
-        pass
-
-    @abstractmethod
-    def precio(self) -> float:
+    
+    def mostrar(self) -> str:
         pass
 
 
@@ -132,7 +107,7 @@ class Composite(Menu):
     def is_composite(self) -> bool:
         return True
 
-    def operation(self) -> str:
+    def precio(self) -> float:
         """
         The Composite executes its primary logic in a particular way. It
         traverses recursively through all its children, collecting and summing
@@ -140,10 +115,10 @@ class Composite(Menu):
         children and so forth, the whole object tree is traversed as a result.
         """
 
-        results = []
+        total_price = 0
         for child in self._children:
-            results.append(child.operation())
-        return f"Branch({'+'.join(results)})"
+            total_price += child.precio()
+        return total_price
 
 
 def client_code(components: Menu) -> None:   #menu simple
@@ -168,7 +143,7 @@ def client_code2(component1: Menu, component2: Menu) -> None:   #menu compuesto
 
     
     print(f"Nombre: {component1.nombre()}", end="")
-    print(f"Precio: {component1.precio()}", end="")
+    print(f"Precio: {sum(component1.precio())}", end="")
 
 
 if __name__ == "__main__":
