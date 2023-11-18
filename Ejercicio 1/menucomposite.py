@@ -53,9 +53,6 @@ class Menu(ABC):
     def precio(self) -> float:
         pass
 
-    @abstractmethod
-    def id(self) -> int:
-        pass
 
 
 class Entrante(Menu):
@@ -70,14 +67,26 @@ class Entrante(Menu):
     def nombre(self) -> str:
         entrantes = ["salsa cesar", "alitas de pollo a la parrilla", "nachos", "mini calzones", "rollitos de primavera caprese"]
         entrante = input(f"Elige un entrante de  {entrantes}: ")
-        return entrante
+        if entrante not in entrantes:
+            print("Entrante no disponible")
+            return self.nombre()
+        else:
+            return entrante
     
     def precio(self) -> float:
-        return 
-    
-    def id(self) -> int:
-
-
+        precios = [3.5, 5.5, 6.5, 4.5, 7.5]
+        entrante = self.nombre()
+        if entrante == "salsa cesar":
+            return precios[0]
+        elif entrante == "alitas de pollo a la parrilla":
+            return precios[1]
+        elif entrante == "nachos":
+            return precios[2]
+        elif entrante == "mini calzones":
+            return precios[3]
+        elif entrante == "rollitos de primavera caprese":
+            return precios[4]
+        
 
 
 class Composite(Menu):
@@ -143,7 +152,7 @@ def client_code2(component1: Menu, component2: Menu) -> None:   #menu compuesto
 
 if __name__ == "__main__":
     # This way the client code can support the simple leaf components...
-    simple = Leaf()
+    simple = Entrante()
     print("Client: I've got a simple component:")
     client_code(simple)
     print("\n")
@@ -152,11 +161,11 @@ if __name__ == "__main__":
     tree = Composite()   #menu compuesto con menus simples
 
     branch1 = Composite()
-    branch1.add(Leaf())
-    branch1.add(Leaf())
+    branch1.add(Entrante())
+    branch1.add(Entrante())
 
     branch2 = Composite()
-    branch2.add(Leaf())
+    branch2.add(Entrante())
 
     tree.add(branch1)
     tree.add(branch2)
