@@ -76,6 +76,9 @@ class Pizza(Menu):
         precio = data[data["pizza_name"] == pizza_escogida]["total_price"].unique()
         return precio[0]
 
+
+
+
 class Composite(Menu):
     """
     The Composite class represents the complex components that may have
