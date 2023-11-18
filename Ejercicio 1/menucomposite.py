@@ -92,8 +92,18 @@ class Entrante(Menu):
 class Pizza(Menu):
 
     def nombre(self) -> str:
-        pizzas = 
+        pizzas = data["pizza_name"].unique().tolist()
+        pizza_escogida = input(f"Elige la pizza que deseas entre {pizzas}: ")
+        if pizza_escogida not in pizzas:
+            print("Pizza no disponible")
+            return self.nombre()
+        else:
+            return pizza_escogida
         
+    def precio(self) -> float:
+        pizza_escogida = self.nombre()
+        precio = data[data["pizza_name"] == pizza_escogida]["total_price"].unique()
+        return precio[0]
 
 
 class Composite(Menu):
@@ -136,13 +146,14 @@ class Composite(Menu):
         return f"Branch({'+'.join(results)})"
 
 
-def client_code(component: Menu) -> None:   #menu simple
+def client_code(components: Menu) -> None:   #menu simple
     """
     The client code works with all of the components via the base interface.
     """
 
-    print(f"Nombre: {component.nombre()}", end="")
-    print(f"Precio: {component.precio()}", end="")
+    for component in components:
+        print(f"Nombre: {component.nombre()}", end="")
+        print(f"Precio: {component.precio()}", end="")
 
 
 def client_code2(component1: Menu, component2: Menu) -> None:   #menu compuesto
@@ -155,13 +166,14 @@ def client_code2(component1: Menu, component2: Menu) -> None:   #menu compuesto
     if component1.is_composite():
         component1.add(component2)
 
+    
     print(f"Nombre: {component1.nombre()}", end="")
     print(f"Precio: {component1.precio()}", end="")
 
 
 if __name__ == "__main__":
     # This way the client code can support the simple leaf components...
-    simple = Entrante()
+    simple = [Entrante(), Pizza()]
     print("Client: I've got a simple component:")
     client_code(simple)
     print("\n")
@@ -171,10 +183,11 @@ if __name__ == "__main__":
 
     branch1 = Composite()
     branch1.add(Entrante())
-    branch1.add(Entrante())
+    branch1.add(Pizza())
 
     branch2 = Composite()
     branch2.add(Entrante())
+    branch2.add(Pizza())
 
     tree.add(branch1)
     tree.add(branch2)
