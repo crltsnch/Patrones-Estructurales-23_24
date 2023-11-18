@@ -120,30 +120,21 @@ class Composite(Menu):
             total_price += child.precio()
         return total_price
 
+    def __iter__(self):
+        return iter(self._children)
 
-def client_code(components: Menu) -> None:   #menu simple
+def client_code(components: List[Menu]) -> None:   #menu simple
     """
     The client code works with all of the components via the base interface.
     """
-
-    for component in components:
-        print(f"Nombre: {component.nombre()}", end="")
-        print(f"Precio: {component.precio()}", end="")
-
-
-def client_code2(component1: Menu, component2: Menu) -> None:   #menu compuesto
-    """
-    Thanks to the fact that the child-management operations are declared in the
-    base Component class, the client code can work with any component, simple or
-    complex, without depending on their concrete classes.
-    """
-
-    if component1.is_composite():
-        component1.add(component2)
-
     
-    print(f"Nombre: {component1.nombre()}", end="")
-    print(f"Precio: {sum(component1.precio())}", end="")
+    for component in components:
+        if isinstance(component, Composite):
+            print("Composite Menu:")
+            client_code(component._children)
+        else:
+            print(f"Nombre: {component.nombre()}", end="")
+            print(f"Precio: {component.precio()}", end="")
 
 
 if __name__ == "__main__":
@@ -170,6 +161,3 @@ if __name__ == "__main__":
     print("Client: Now I've got a composite tree:")
     client_code(tree)
     print("\n")
-
-    print("Client: I don't need to check the components classes even when managing the tree:")
-    client_code2(tree, simple)
