@@ -57,6 +57,8 @@ class Entrante(Menu):
         index = entrantes.index(self.nombre_elegido)
         return precios[index]
 
+
+
 class Pizza(Menu):
 
     def nombre(self) -> str:
@@ -73,7 +75,6 @@ class Pizza(Menu):
         pizza_escogida = self.nombre_elegido
         precio = data[data["pizza_name"] == pizza_escogida]["total_price"].unique()
         return precio[0]
-
 
 class Composite(Menu):
     """
@@ -117,15 +118,13 @@ class Composite(Menu):
             total_price += child.precio()
         return total_price
 
-    def __iter__(self):
-        return iter(self._children)
-
-def client_code(component: Menu) -> None:   #menu simple
+def client_code(component: List[Menu]) -> None:   #menu simple
     """
     The client code works with all of the components via the base interface.
     """
     print(f"Nombre: {component.nombre()}")
     print(f"Precio: {component.precio()}")
+
 
 
 if __name__ == "__main__":
@@ -140,6 +139,6 @@ if __name__ == "__main__":
     menu.add(entrante)
     menu.add(pizza)
 
-    print("Cliente: Ahora tengo un menú:")
+    print("El menú:")
     client_code(menu)
 
