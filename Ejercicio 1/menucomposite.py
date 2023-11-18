@@ -46,13 +46,15 @@ class Menu(ABC):
         return False
 
     @abstractmethod
-    def operation(self) -> str:
-        """
-        The base Component may implement some default behavior or leave it to
-        concrete classes (by declaring the method containing the behavior as
-        "abstract").
-        """
+    def nombre(self) -> str:
+        pass
 
+    @abstractmethod
+    def precio(self) -> float:
+        pass
+
+    @abstractmethod
+    def id(self) -> int:
         pass
 
 
@@ -77,7 +79,7 @@ class Composite(Menu):
     """
 
     def __init__(self) -> None:
-        self._children: List[Component] = []
+        self._children: List[Menu] = []
 
     """
     A composite object can add or remove other components (both simple or
@@ -109,7 +111,7 @@ class Composite(Menu):
         return f"Branch({'+'.join(results)})"
 
 
-def client_code(component: Menu) -> None:
+def client_code(component: Menu) -> None:   #menu simple
     """
     The client code works with all of the components via the base interface.
     """
@@ -117,7 +119,7 @@ def client_code(component: Menu) -> None:
     print(f"RESULT: {component.operation()}", end="")
 
 
-def client_code2(component1: Menu, component2: Menu) -> None:
+def client_code2(component1: Menu, component2: Menu) -> None:   #menu compuesto
     """
     Thanks to the fact that the child-management operations are declared in the
     base Component class, the client code can work with any component, simple or
@@ -138,7 +140,7 @@ if __name__ == "__main__":
     print("\n")
 
     # ...as well as the complex composites.
-    tree = Composite()
+    tree = Composite()   #menu compuesto con menus simples
 
     branch1 = Composite()
     branch1.add(Leaf())
