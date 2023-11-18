@@ -7,7 +7,7 @@ data = pd.read_csv('/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estru
 '''------Limpieza de datos-------'''
 
 #Eliminamos columnas que no me sirven
-colum_eliminar = ["unit_price", "total_price", "order_id", "quantity", "order_details_id"]
+colum_eliminar = ["unit_price", "order_id", "quantity", "order_details_id"]
 data_final = data.drop(colum_eliminar, axis=1)
 
 #print(data_final.head())

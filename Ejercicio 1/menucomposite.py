@@ -1,7 +1,9 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import List
+import pandas as pd
 
+data = pd.read_csv('/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estructurales-23_24/Ejercicio 1/data/data_final.csv', sep=';', encoding='ISO-8859-1')
 
 class Menu(ABC):
     """
@@ -86,6 +88,11 @@ class Entrante(Menu):
             return precios[3]
         elif entrante == "rollitos de primavera caprese":
             return precios[4]
+
+class Pizza(Menu):
+
+    def nombre(self) -> str:
+        pizzas = 
         
 
 
@@ -134,7 +141,8 @@ def client_code(component: Menu) -> None:   #menu simple
     The client code works with all of the components via the base interface.
     """
 
-    print(f"RESULT: {component.operation()}", end="")
+    print(f"Nombre: {component.nombre()}", end="")
+    print(f"Precio: {component.precio()}", end="")
 
 
 def client_code2(component1: Menu, component2: Menu) -> None:   #menu compuesto
@@ -147,7 +155,8 @@ def client_code2(component1: Menu, component2: Menu) -> None:   #menu compuesto
     if component1.is_composite():
         component1.add(component2)
 
-    print(f"RESULT: {component1.operation()}", end="")
+    print(f"Nombre: {component1.nombre()}", end="")
+    print(f"Precio: {component1.precio()}", end="")
 
 
 if __name__ == "__main__":
