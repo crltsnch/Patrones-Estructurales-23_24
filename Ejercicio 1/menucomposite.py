@@ -43,40 +43,33 @@ class Entrante(Menu):
 
     def nombre(self) -> str:
         entrantes = ["salsa cesar", "alitas de pollo a la parrilla", "nachos", "mini calzones", "rollitos de primavera caprese"]
-        entrante = input(f"Elige un entrante de  {entrantes}: ")
-        if entrante not in entrantes:
-            print("Entrante no disponible")
-            return self.nombre()
-        else:
-            return entrante
+        while True:
+            self.nombre_elegido = input(f"Elige un entrante de {entrantes}: ")
+            if self.nombre_elegido in entrantes:
+                return self.nombre_elegido
+            else:
+                print("Entrante no disponible")
+                return self.nombre()
     
     def precio(self) -> float:
         precios = [3.5, 5.5, 6.5, 4.5, 7.5]
-        entrante = self.nombre()
-        if entrante == "salsa cesar":
-            return precios[0]
-        elif entrante == "alitas de pollo a la parrilla":
-            return precios[1]
-        elif entrante == "nachos":
-            return precios[2]
-        elif entrante == "mini calzones":
-            return precios[3]
-        elif entrante == "rollitos de primavera caprese":
-            return precios[4]
+        index = entrantes.index(self.nombre_elegido)
+        return precios[index]
 
 class Pizza(Menu):
 
     def nombre(self) -> str:
         pizzas = data["pizza_name"].unique().tolist()
-        pizza_escogida = input(f"Elige la pizza que deseas entre {pizzas}: ")
-        if pizza_escogida not in pizzas:
-            print("Pizza no disponible")
-            return self.nombre()
-        else:
-            return pizza_escogida
+        while True:
+            self.nombre_elegido = input(f"Elige la pizza que deseas entre {pizzas}: ")
+            if self.nombre_elegido in pizzas:
+                return self.nombre_elegido
+            else:
+                print("Pizza no disponible")
+                return self.nombre()
         
     def precio(self) -> float:
-        pizza_escogida = self.nombre()
+        pizza_escogida = self.nombre_elegido
         precio = data[data["pizza_name"] == pizza_escogida]["total_price"].unique()
         return precio[0]
 
@@ -123,18 +116,12 @@ class Composite(Menu):
     def __iter__(self):
         return iter(self._children)
 
-def client_code(components: List[Menu]) -> None:   #menu simple
+def client_code(component: Menu) -> None:   #menu simple
     """
     The client code works with all of the components via the base interface.
     """
-    
-    for component in components:
-        if isinstance(component, Composite):
-            print("Composite Menu:")
-            client_code(component._children)
-        else:
-            print(f"Nombre: {component.nombre()}", end="")
-            print(f"Precio: {component.precio()}", end="")
+    print(f"Nombre: {component.nombre()}")
+    print(f"Precio: {component.precio()}")
 
 
 if __name__ == "__main__":
