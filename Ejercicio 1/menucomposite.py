@@ -6,6 +6,9 @@ import pandas as pd
 data = pd.read_csv('/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estructurales-23_24/Ejercicio 1/data/data_final.csv', sep=';', encoding='ISO-8859-1')
 
 class Menu(ABC):
+    '''La clase Componente base declara operaciones comunes tanto para los objetos
+    simples como para los compuestos de una composición.'''
+    
     @property
     def parent(self) -> Menu:
         return self._parent
@@ -27,6 +30,7 @@ class Menu(ABC):
         """
         return False
     
+    @abstractmethod
     def mostrar(self) -> str:
         pass
 
