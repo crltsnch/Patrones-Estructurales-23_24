@@ -121,8 +121,9 @@ class CompositeComboCompuesto(Menu):
         self.combo2 = combo2
 
     def mostrar(self) -> str:
-        print(f"Combo Pareja: {self.nombre}")
+        print(f"Combo Compuesto: {self.nombre}")
         self.combo1.mostrar()
+        print("\n")
         self.combo2.mostrar()
         print(f"Precio total del Combo: {self.precio_total()}")
 
@@ -295,7 +296,26 @@ if __name__ == "__main__":
 
 
         '''----------Combo Predefinido 3----------'''
-        pizza3 = Pizza("The Margherita Pizza", data[data["pizza_name"] == "The Margherita Pizza"]["total_price"].unique()[0])
+        entrante3 = Entrante("nachos", 5.5)
+        pizza3 = Pizza("The Thai Chicken Pizza", data[data["pizza_name"] == "The Thai Chicken Pizza"]["total_price"].unique()[0])
+        bebida3 = Bebida("Albariño", 4.5)
+        postre3 = Postre("Mousse de chocolate", 4.5)
+
+        combo3 = CompositeCombo("Combo Deluxe")
+        combo3.add(entrante3)
+        combo3.add(pizza3)
+        combo3.add(bebida3)
+        combo3.add(postre3)
+
+        print("Combo Deluxe")
+        combo3.mostrar()
+
+
+        descuento = 0.2
+        precio_descuento3 = combo3.precio_total() * (1 - descuento)
+        print("\n¡Oferta especial! Al elegir este combo obtienes un 20% de descuento:")
+        print(f"Combo Individual precio final con descuento: {round(precio_descuento3, 2)}\n")
+
 
 
 
@@ -311,7 +331,17 @@ if __name__ == "__main__":
         print(f"Combo Pareja precio final con descuento: {round(precio_descuento2, 2)}\n")
 
         '''----------Combo Compuesto 2----------'''
-        # Creamos un combo compuesto con el combo1 y combo1 con descuento
+        # Creamos un combo compuesto con el combo1 y combo3 con descuento
+        combo_compuesto2 = CompositeComboCompuesto("Combo Familiar")
+        combo_compuesto2.personalizar(combo1, combo3)
+        combo_compuesto2.mostrar()
+
+        descuento = 0.1
+        precio_descuento2 = combo_compuesto1.precio_total() * (1 - descuento)
+        print("\n¡Oferta especial! Al elegir este combo obtienes un 10% de descuento y gana 2 entradas para el cine:")
+        print(f"Combo Pareja precio final con descuento: {round(precio_descuento2, 2)}\n")
+
+
 
 
 
