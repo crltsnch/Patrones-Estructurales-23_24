@@ -3,7 +3,7 @@ from pizzabuilder import PizzaBuilder
 from pizza import Pizza
 import pandas as pd
 
-data = pd.read_csv('/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estructurales-23_24/Ejercicio 1/data/data_final.csv', sep=';', encoding='ISO-8859-1')
+data = pd.read_csv('/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estructurales-23_24/Ejercicio 1/pizzas/data/data_final.csv', sep=';', encoding='ISO-8859-1')
 
 
 class ConcretePizzaBuilder(PizzaBuilder):

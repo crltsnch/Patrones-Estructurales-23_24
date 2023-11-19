@@ -3,7 +3,7 @@ import csv
 import os
 
 def guardar_pizza_personalizada(pizza_personalizada):
-    carpeta_ejercicio2 = 'Ejercicio 1'
+    carpeta_ejercicio2 = 'Ejercicio 1/pizzas'
     ruta_archivo = os.path.join(carpeta_ejercicio2, 'pizzas.csv')
 
     with open(ruta_archivo, 'a', newline='') as file:

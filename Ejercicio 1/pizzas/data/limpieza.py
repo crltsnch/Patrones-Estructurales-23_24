@@ -1,6 +1,6 @@
 import pandas as pd
 
-data = pd.read_csv('/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estructurales-23_24/Ejercicio 1/data/Data-Model-Pizza-Sales.csv')
+data = pd.read_csv('/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estructurales-23_24/Ejercicio 1/pizzas/data/Data-Model-Pizza-Sales.csv')
 #print(data.head())
 
 
@@ -74,4 +74,4 @@ data_final = data_final.rename(columns={"pizza_category": "salsa_base"})
 
 '''------Exportar datos-------'''
 #guardamos el data final en un csv en la carpeta data
-data_final.to_csv("/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estructurales-23_24/Ejercicio 1/data/data_final.csv", sep=";", encoding='utf-8', index=True)
+data_final.to_csv("/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estructurales-23_24/Ejercicio 1/pizzas/data/data_final.csv", sep=";", encoding='utf-8', index=True)
