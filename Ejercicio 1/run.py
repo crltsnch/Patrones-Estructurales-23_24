@@ -3,6 +3,7 @@ import pandas as pd
 from codigocliente import client_code
 from hojas import Entrante, Pizza, Bebida, Postre
 from composite import CompositeCombo, CompositeComboCompuesto
+from guardarmenus import guardar_menu_personalizado
 
 data = pd.read_csv('/Users/carlotasanchezgonzalez/Documents/class/Patrones-Estructurales-23_24/Ejercicio 1/pizzas/data/data_final.csv', sep=';', encoding='ISO-8859-1')
 
@@ -108,6 +109,11 @@ if __name__ == "__main__":
 
         print("\nMenú Personalizado:")
         menu_personalizado.mostrar()
+
+        # Guardar menú personalizado
+       
+        guardar_menu_personalizado(menu_personalizado)
+
 
 
 
@@ -231,3 +237,4 @@ if __name__ == "__main__":
 
     else:
         print("Opción no válida. Vuelve a intentarlo.")
+
