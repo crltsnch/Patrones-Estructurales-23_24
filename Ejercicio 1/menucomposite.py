@@ -261,7 +261,7 @@ if __name__ == "__main__":
 
         descuento = 0.2
         precio_descuento1 = combo1.precio_total() * (1 - descuento)
-        print("\n¡Oferta especial! Obtén un 20% de descuento al elegir cualquiera de estos combos:")
-        print(f"1. Combo Fiesta con descuento: {round(precio_descuento1, 2)}")
+        print("\n¡Oferta especial! Al elegir este combo obtienes un 20% de descuento:")
+        print(f"1. Combo Fiesta precio final con descuento: {round(precio_descuento1, 2)}")
 
 
