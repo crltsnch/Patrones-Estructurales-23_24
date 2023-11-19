@@ -174,7 +174,7 @@ if __name__ == "__main__":
         instancias_entrantes = [Entrante(nombre, precio) for nombre, precio in entrantes_disponibles]
 
         # Generar instancias de Pizza con todos los nombres y precios disponibles
-        pizzas_disponibles = data[["pizza_name", "total_price"]].drop_duplicates()
+        pizzas_disponibles = data.groupby('pizza_name')['total_price'].first().reset_index()
         instancias_pizzas = [Pizza(nombre, precio) for nombre, precio in pizzas_disponibles.values]
 
         #Generar instancias de Bebida con todos los nombres y precios disponibles  
@@ -251,10 +251,9 @@ if __name__ == "__main__":
 
 
     elif eleccion == 2:
-        print("¡Vamos a elegir un menu de nuestras creaciones!")
+        print("¡Vamos a elegir un menu de nuestras creaciones!\n")
         
         '''----------Combo Predefinido 1----------'''
-
         #Creamos las intancias de entrantes y pizzas para añadir a nuestro combo individual prefenido
         entrante1 = Entrante("salsa cesar", 3.5)
         pizza1 = Pizza("The Mediterranean Pizza", data[data["pizza_name"] == "The Mediterranean Pizza"]["total_price"].unique()[0])
@@ -269,31 +268,51 @@ if __name__ == "__main__":
         combo1.add(bebida1)
         combo1.add(postre1)
 
-        print("\nCombos disponibles:")
-        print("1. Combo Individual")
+        print("Combo Individual")
         combo1.mostrar()
 
         descuento = 0.2
         precio_descuento1 = combo1.precio_total() * (1 - descuento)
         print("\n¡Oferta especial! Al elegir este combo obtienes un 20% de descuento:")
-        print(f"1. Combo Individual precio final con descuento: {round(precio_descuento1, 2)}\n")
+        print(f"Combo Individual precio final con descuento: {round(precio_descuento1, 2)}\n")
 
 
         '''----------Combo Predefinido 2----------'''
-        pizza2 = 
+        pizza2 = Pizza("The Prosciutto and Arugula Pizza", data[data["pizza_name"] == "The Prosciutto and Arugula Pizza"]["total_price"].unique()[0])
+        postre2 = Postre("Tiramisu", 5.5)
+
+        combo2 = CompositeCombo("Combo Sencillo")
+        combo2.add(pizza2)
+        combo2.add(postre2)
+
+        print("Combo Sencillo")
+        combo2.mostrar()
+
+        descuento = 0.1
+        print("\n¡Oferta especial! Al elegir este combo obtienes un 10% de descuento:")
+        precio_descuento2 = combo2.precio_total() * (1 - descuento)
+        print(f"Combo Sencillo precio final con descuento: {round(precio_descuento2, 2)}\n")
 
 
-        # Creamos un combo compuesto con el combo1 y combo1 con descuento
+        '''----------Combo Predefinido 3----------'''
+        pizza3 = Pizza("The Margherita Pizza", data[data["pizza_name"] == "The Margherita Pizza"]["total_price"].unique()[0])
+
+
+
+        '''----------Combo Compuesto 1----------'''
+        # Creamos un combo compuesto con el combo1 y combo2 con descuento
         combo_compuesto1 = CompositeComboCompuesto("Combo Pareja")
-        combo_compuesto1.personalizar(combo1, combo1)
+        combo_compuesto1.personalizar(combo1, combo2)
         combo_compuesto1.mostrar()
 
         descuento = 0.3
         precio_descuento2 = combo_compuesto1.precio_total() * (1 - descuento)
         print("\n¡Oferta especial! Al elegir este combo obtienes un 30% de descuento:")
-        print(f"2. Combo Pareja precio final con descuento: {round(precio_descuento2, 2)}\n")
+        print(f"Combo Pareja precio final con descuento: {round(precio_descuento2, 2)}\n")
 
-        '''----------Combo Predefinido 2----------'''
+        '''----------Combo Compuesto 2----------'''
+        # Creamos un combo compuesto con el combo1 y combo1 con descuento
+
 
 
 
