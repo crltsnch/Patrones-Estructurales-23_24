@@ -161,12 +161,14 @@ if __name__ == "__main__":
     mensaje = "1. Crear menu \n2. Elegir menu ya hecho \nElige una opción: "
     eleccion = client_code(mensaje, opciones)
 
+
+
     if eleccion == 1:
         print("¡Vamos a crear tu menu!")
 
         # Generar instancias de Entrante con todos los entrantes y precios disponibles
         entrantes_disponibles = [
-            ("salsa cesar", 3.5),
+             ("salsa cesar", 3.5),
             ("alitas de pollo a la parrilla", 5.5),
             ("nachos", 6.5),
             ("mini calzones", 4.5),
@@ -249,6 +251,7 @@ if __name__ == "__main__":
 
         print("\nMenú Personalizado:")
         menu_personalizado.mostrar()
+
 
 
     elif eleccion == 2:
@@ -345,5 +348,29 @@ if __name__ == "__main__":
 
 
 
+        '''----------Selección de Combo----------'''
+        while True:
+            print("1. Combo Individual")
+            print("2. Combo Sencillo")
+            print("3. Combo Deluxe")
+            print("4. Combo Pareja")
+            print("5. Combo Familiar")
+            combo_elegido = int(input("¿Qué combo deseas? (número) o deseas salir (6): "))
+            combos = [1, 2, 3, 4, 5, 6]
 
+            if combo_elegido not in combos:
+                print("Opción no disponible")
+                continue
+            
+            if combo_elegido == 6:
+                break
 
+            
+            print("¡Gracias por elegirnos!")
+            print("Tu pedido está en marcha...")
+            print("¡Buen provecho!")
+            break
+                
+
+    else:
+        print("Opción no válida. Vuelve a intentarlo.")
