@@ -196,6 +196,16 @@ if __name__ == "__main__":
         instancias_bebidas = [Bebida(nombre, precio) for nombre, precio in bebidas_disponibles]
 
 
+        #Generar instacias de Postre con todos los nombres y precios disponibles
+        postres_disponibles = [
+            ("Tarta de queso", 5.5),
+            ("Mousse de chocolate", 4.5),
+            ("Tarta de zanahoria", 4.5),
+            ("Helado variado", 3.5),
+            ("Tiramisu", 5.5)
+        ]
+
+
         # Permitir al cliente elegir su menu dandole a elegir entre los entrantes mediante un numero
         print("\nEntrantes disponibles:")
         for i, entrante in enumerate(instancias_entrantes, start=1):
@@ -220,15 +230,25 @@ if __name__ == "__main__":
         eleccion_bebida = client_code("Elige una bebida (número): ", list(range(1, len(instancias_bebidas) + 1)))
         bebida_personalizada = instancias_bebidas[eleccion_bebida - 1]
 
+        # Permitir al cliente elegir su menu dandole a elegir entre los postres disponibles mediante un numero
+        print("\nPostres disponibles:")
+        for i, postre in enumerate(postres_disponibles, start=1):
+            print(f"{i}. {postre[0]} - Precio: {postre[1]}")
+        
+        eleccion_postre = client_code("Elige un postre (número): ", list(range(1, len(postres_disponibles) + 1)))
+        postre_personalizado = postres_disponibles[eleccion_postre - 1]
+
         # Crear menú personalizado
         nombre_combo = input("Elige un nombre para tu combo: ")
         menu_personalizado = CompositeCombo(nombre_combo)
         menu_personalizado.add(entrante_personalizado)
         menu_personalizado.add(pizza_personalizada)
         menu_personalizado.add(bebida_personalizada)
+        menu_personalizado.add(postre_personalizado)
 
         print("\nMenú Personalizado:")
         menu_personalizado.mostrar()
+
 
     elif eleccion == 2:
         print("¡Vamos a elegir un menu de nuestras creaciones!")
@@ -239,7 +259,7 @@ if __name__ == "__main__":
         entrante1 = Entrante("salsa cesar", 3.5)
         pizza1 = Pizza("The Mediterranean Pizza", data[data["pizza_name"] == "The Mediterranean Pizza"]["total_price"].unique()[0])
         bebida1 = Bebida("Cola", 2.5)
-        postre1 = Postre()
+        postre1 = Postre("Tarta de queso", 5.5)
 
 
         #Creamos el combo
@@ -247,15 +267,20 @@ if __name__ == "__main__":
         combo1.add(entrante1)
         combo1.add(pizza1)
         combo1.add(bebida1)
+        combo1.add(postre1)
 
         print("\nCombos disponibles:")
-        print("1. Combo Fiesta")
+        print("1. Combo Individual")
         combo1.mostrar()
 
         descuento = 0.2
         precio_descuento1 = combo1.precio_total() * (1 - descuento)
         print("\n¡Oferta especial! Al elegir este combo obtienes un 20% de descuento:")
         print(f"1. Combo Individual precio final con descuento: {round(precio_descuento1, 2)}\n")
+
+
+        '''----------Combo Predefinido 2----------'''
+        pizza2 = 
 
 
         # Creamos un combo compuesto con el combo1 y combo1 con descuento
