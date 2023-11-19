@@ -96,15 +96,16 @@ class Pizza(Menu):
 
 
 
-class Composite(Menu):
+class CompositeCombo(Menu):
     """
     The Composite class represents the complex components that may have
     children. Usually, the Composite objects delegate the actual work to their
     children and then "sum-up" the result.
     """
 
-    def __init__(self) -> None:
-        self._children: List[Menu] = []
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.elementos = []
 
     """
     A composite object can add or remove other components (both simple or
