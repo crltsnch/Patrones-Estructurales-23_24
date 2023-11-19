@@ -121,10 +121,14 @@ class CompositeCombo(Menu):
     def is_composite(self) -> bool:
         return True
     
-    def nombre(self) -> str:
-        return "Menu"
+    def mostrar(self) -> str:
+        print(f"Combo: {self.nombre}")
+        for componente in self.componentes:
+            componente.mostrar()
+        
+        print(f"Precio total del Combo: {self.precio_total()}")
 
-    def precio(self) -> float:
+    def precio_total(self) -> float:
         """
         The Composite executes its primary logic in a particular way. It
         traverses recursively through all its children, collecting and summing
