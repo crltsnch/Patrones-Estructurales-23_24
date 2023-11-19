@@ -45,7 +45,7 @@ class Entrante(Menu):
     objects only delegate to their sub-components.
     """
 
-    def nombre(self) -> str:
+    '''def nombre(self) -> str:
         entrantes = ["salsa cesar", "alitas de pollo a la parrilla", "nachos", "mini calzones", "rollitos de primavera caprese"]
         while True:
             self.nombre_elegido = input(f"Elige un entrante de {entrantes}: ")
@@ -59,13 +59,18 @@ class Entrante(Menu):
         precios = [3.5, 5.5, 6.5, 4.5, 7.5]
         entrantes = ["salsa cesar", "alitas de pollo a la parrilla", "nachos", "mini calzones", "rollitos de primavera caprese"]
         index = entrantes.index(self.nombre_elegido)
-        return precios[index]
+        return precios[index]'''
 
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
 
+    def mostrar(self) -> str:
+        return f"Entrante: {self.nombre} \nPrecio: {self.precio}"
 
 class Pizza(Menu):
 
-    def nombre(self) -> str:
+   ''' def nombre(self) -> str:
         pizzas = data["pizza_name"].unique().tolist()
         while True:
             self.nombre_elegido = input(f"Elige la pizza que deseas entre {pizzas}: ")
@@ -79,7 +84,9 @@ class Pizza(Menu):
         pizza_escogida = self.nombre_elegido
         precio = data[data["pizza_name"] == pizza_escogida]["total_price"].unique()
         return precio[0]
+'''
 
+    
 
 
 
