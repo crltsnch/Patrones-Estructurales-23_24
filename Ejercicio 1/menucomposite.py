@@ -93,8 +93,7 @@ class Pizza(Menu):
         return precio[0]'''
 
 
-
-
+'''-------------COMBO------------'''
 
 class CompositeCombo(Menu):
     """
@@ -140,6 +139,20 @@ class CompositeCombo(Menu):
         for componente in self.componentes:
             total_price += componente.precio()
         return total_price
+    
+
+'''-------------COMBO PAREJA------------'''
+
+class CompositeComboPareja(Menu):
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.combo1 = None
+        self.combo2 = None
+    
+    def personalizar(self, combo1: Menu, combo2: Menu):
+        self.combo1 = combo1
+        self.combo2 = combo2
+
 
 def client_code(component: List[Menu]) -> None:   #menu simple
     """
