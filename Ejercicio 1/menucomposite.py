@@ -9,26 +9,11 @@ class Menu(ABC):
     '''La clase Componente base declara operaciones comunes tanto para los objetos
     simples como para los compuestos de una composición.'''
     
-    @property
-    def parent(self) -> Menu:
-        return self._parent
-
-    @parent.setter
-    def parent(self, parent: Menu):
-        self._parent = parent
-
     def add(self, component: Menu) -> None:
         pass
 
     def remove(self, component: Menu) -> None:
         pass
-
-    def is_composite(self) -> bool:
-        """
-        You can provide a method that lets the client code figure out whether a
-        component can bear children.
-        """
-        return False
     
     @abstractmethod
     def mostrar(self) -> str:
@@ -44,22 +29,6 @@ class Entrante(Menu):
     Usually, it's the Leaf objects that do the actual work, whereas Composite
     objects only delegate to their sub-components.
     """
-
-    '''def nombre(self) -> str:
-        entrantes = ["salsa cesar", "alitas de pollo a la parrilla", "nachos", "mini calzones", "rollitos de primavera caprese"]
-        while True:
-            self.nombre_elegido = input(f"Elige un entrante de {entrantes}: ")
-            if self.nombre_elegido in entrantes:
-                return self.nombre_elegido
-            else:
-                print("Entrante no disponible")
-                return self.nombre()
-    
-    def precio(self) -> float:
-        precios = [3.5, 5.5, 6.5, 4.5, 7.5]
-        entrantes = ["salsa cesar", "alitas de pollo a la parrilla", "nachos", "mini calzones", "rollitos de primavera caprese"]
-        index = entrantes.index(self.nombre_elegido)
-        return precios[index]'''
 
     def __init__(self, nombre, precio):
         self.nombre = nombre
@@ -77,21 +46,6 @@ class Pizza(Menu):
     def mostrar(self) -> str:
         print(f"Pizza: {self.nombre} , Precio: {self.precio}")
 
-
-''' def nombre(self) -> str:
-        pizzas = data["pizza_name"].unique().tolist()
-        while True:
-            self.nombre_elegido = input(f"Elige la pizza que deseas entre {pizzas}: ")
-            if self.nombre_elegido in pizzas:
-                return self.nombre_elegido
-            else:
-                print("Pizza no disponible")
-                return self.nombre()
-        
-    def precio(self) -> float:
-        pizza_escogida = self.nombre_elegido
-        precio = data[data["pizza_name"] == pizza_escogida]["total_price"].unique()
-        return precio[0]'''
 
 
 '''-------------COMBO------------'''
@@ -117,9 +71,6 @@ class CompositeCombo(Menu):
 
     def remove(self, componente: Menu) -> None:
         self.componentes.remove(componente)
-
-    def is_composite(self) -> bool:
-        return True
     
     def mostrar(self) -> str:
         print(f"Combo: {self.nombre}")
