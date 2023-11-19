@@ -63,6 +63,7 @@ class Postre(Menu):
     def mostrar(self) -> str:
         print(f"Postre: {self.nombre} , Precio: {self.precio}")
 
+
 '''-------------COMBO------------'''
 
 class CompositeCombo(Menu):
@@ -235,11 +236,12 @@ if __name__ == "__main__":
 
         # Permitir al cliente elegir su menu dandole a elegir entre los postres disponibles mediante un numero
         print("\nPostres disponibles:")
-        for i, postre in enumerate(postres_disponibles, start=1):
-            print(f"{i}. {postre[0]} - Precio: {postre[1]}")
-        
+        for i, (nombre_postre, precio_postre) in enumerate(postres_disponibles, start=1):
+            print(f"{i}. {nombre_postre} - Precio: {precio_postre}")
+
         eleccion_postre = client_code("Elige un postre (número): ", list(range(1, len(postres_disponibles) + 1)))
-        postre_personalizado = postres_disponibles[eleccion_postre - 1]
+        nombre_postre, precio_postre = postres_disponibles[eleccion_postre - 1]
+        postre_personalizado = Postre(nombre_postre, precio_postre)
 
         # Crear menú personalizado
         nombre_combo = input("Elige un nombre para tu combo: ")
