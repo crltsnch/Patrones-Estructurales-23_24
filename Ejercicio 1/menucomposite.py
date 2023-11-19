@@ -137,8 +137,8 @@ class CompositeCombo(Menu):
         """
 
         total_price = 0
-        for child in self._children:
-            total_price += child.precio()
+        for componente in self.componentes:
+            total_price += componente.precio()
         return total_price
 
 def client_code(component: List[Menu]) -> None:   #menu simple
