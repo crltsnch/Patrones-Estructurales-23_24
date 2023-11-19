@@ -105,20 +105,18 @@ class CompositeCombo(Menu):
 
     def __init__(self, nombre):
         self.nombre = nombre
-        self.elementos = []
+        self.componentes = []
 
     """
     A composite object can add or remove other components (both simple or
     complex) to or from its child list.
     """
 
-    def add(self, component: Menu) -> None:
-        self._children.append(component)
-        component.parent = self
+    def add(self, componente: Menu) -> None:
+        self.componentes.append(componente)
 
-    def remove(self, component: Menu) -> None:
-        self._children.remove(component)
-        component.parent = None
+    def remove(self, componente: Menu) -> None:
+        self.componentes.remove(componente)
 
     def is_composite(self) -> bool:
         return True
