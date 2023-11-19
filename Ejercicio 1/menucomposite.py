@@ -66,7 +66,8 @@ class Entrante(Menu):
         self.precio = precio
 
     def mostrar(self) -> str:
-        print(f"Entrante: {self.nombre} \nPrecio: {self.precio}")
+        print(f"Entrante: {self.nombre} , Precio: {self.precio}")
+
 
 class Pizza(Menu):
     def __init__(self, nombre, precio):
@@ -74,7 +75,7 @@ class Pizza(Menu):
         self.precio = precio
     
     def mostrar(self) -> str:
-        print(f"Pizza: {self.nombre} \nPrecio: {self.precio}")
+        print(f"Pizza: {self.nombre} , Precio: {self.precio}")
 
 
 ''' def nombre(self) -> str:
@@ -137,7 +138,7 @@ class CompositeCombo(Menu):
 
         total_price = 0
         for componente in self.componentes:
-            total_price += componente.precio()
+            total_price += componente.precio
         return total_price
     
 
@@ -176,25 +177,91 @@ def client_code(mensaje, opciones) -> None:   #menu simple
                 return eleccion
             else:
                 print("Opción no disponible")
-                
+
         except ValueError:
             print("Opción no disponible")
     
 
 
-
 if __name__ == "__main__":
-    entrante = Entrante()
-    pizza = Pizza()
+    """
+    This way the client code can support the simple leaf components...
+    """
+    print("Bienvenido a la pizzeria")
+    print("¿Quieres crear tu propio menu o elegir uno ya hecho?")
+    
+    opciones = [1, 2]
+    mensaje = "1. Crear menu \n2. Elegir menu ya hecho \nElige una opción: "
+    eleccion = client_code(mensaje, opciones)
 
-    print("Elige tu comida:")
-    client_code(entrante)
-    client_code(pizza)
+    if eleccion == 1:
+        print("¡Vamos a crear tu menu!")
 
-    menu = Composite()
-    menu.add(entrante)
-    menu.add(pizza)
+        # Generar instancias de Entrante con todos los entrantes y precios disponibles
+        entrantes_disponibles = [
+            ("salsa cesar", 3.5),
+            ("alitas de pollo a la parrilla", 5.5),
+            ("nachos", 6.5),
+            ("mini calzones", 4.5),
+            ("rollitos de primavera caprese", 7.5)
+        ]
 
-    print("El menú:")
-    client_code(menu)
+        instancias_entrantes = [Entrante(nombre, precio) for nombre, precio in entrantes_disponibles]
+
+        # Generar instancias de Pizza con todos los nombres y precios disponibles
+        pizzas_disponibles = data[["pizza_name", "total_price"]].drop_duplicates()
+
+        instancias_pizzas = [Pizza(nombre, precio) for nombre, precio in pizzas_disponibles.values]
+
+        # Permitir al cliente elegir su menu dandole a elegir entre los entrantes y pizzas disponibles mediante un numero
+        print("\nEntrantes disponibles:")
+        for i, entrante in enumerate(instancias_entrantes, start=1):
+            print(f"{i}. {entrante.nombre} - Precio: {entrante.precio}")
+
+        eleccion_entrante = client_code("Elige un entrante (número): ", list(range(1, len(instancias_entrantes) + 1)))
+        entrante_personalizado = instancias_entrantes[eleccion_entrante - 1]
+
+        print("\nPizzas disponibles:")
+        for i, pizza in enumerate(instancias_pizzas, start=1):
+            print(f"{i}. {pizza.nombre} - Precio: {pizza.precio}")
+
+        eleccion_pizza = client_code("Elige una pizza (número): ", list(range(1, len(instancias_pizzas) + 1)))
+        pizza_personalizada = instancias_pizzas[eleccion_pizza - 1]
+
+        # Crear menú personalizado
+        nombre_combo = input("Elige un nombre para tu combo: ")
+        menu_personalizado = CompositeCombo(nombre_combo)
+        menu_personalizado.add(entrante_personalizado)
+        menu_personalizado.add(pizza_personalizada)
+
+        print("\nMenú Personalizado:")
+        menu_personalizado.mostrar()
+
+    elif eleccion == 2:
+        print("¡Vamos a elegir un menu ya hecho!")
+        
+        '''----------Combo Predefinido 1----------'''
+
+        #Creamos las intancias de entrantes y pizzas para añadir a nuestro combo prefenido
+        entrante11 = Entrante("salsa cesar", 3.5)
+        entrante12 = Entrante("nachos", 6.5)
+        pizza11 = Pizza("The Mediterranean Pizza", data[data["pizza_name"] == "The Mediterranean Pizza"]["total_price"].unique()[0])
+        pizza12 = Pizza("The Brie Carre Pizza", data[data["pizza_name"] == "The Brie Carre Pizza"]["total_price"].unique()[0])
+
+        #Creamos el combo
+        combo1 = CompositeCombo("Combo Pareja")
+        combo1.add(entrante11)
+        combo1.add(pizza11)
+        combo1.add(entrante12)
+        combo1.add(pizza12)
+
+        print("\nCombos disponibles:")
+        print("1. Combo Fiesta")
+        combo1.mostrar()
+
+        descuento = 0.2
+        precio_descuento1 = combo1.precio_total() * (1 - descuento)
+        print("\n¡Oferta especial! Obtén un 20% de descuento al elegir cualquiera de estos combos:")
+        print(f"1. Combo Fiesta con descuento: {round(precio_descuento1, 2)}")
+
 
