@@ -153,10 +153,21 @@ class CompositeComboPareja(Menu):
         self.combo1 = combo1
         self.combo2 = combo2
 
+    def mostrar(self) -> str:
+        print(f"Combo Pareja: {self.nombre}")
+        self.combo1.mostrar()
+        self.combo2.mostrar()
+        print(f"Precio total del Combo: {self.precio_total()}")
+
+    def precio_total(self) -> float:
+        precio_combo1 = self.combo1.precio_total()
+        precio_combo2 = self.combo2.precio_total()
+        return precio_combo1 + precio_combo2
+
 
 def client_code(component: List[Menu]) -> None:   #menu simple
     """
-    The client code works with all of the components via the base interface.
+    El código del cliente funciona con todos los componentes a través de la interfaz base. Vamos a pedirle 
     """
     print(f"Nombre: {component.nombre()}")
     print(f"Precio: {component.precio()}")
