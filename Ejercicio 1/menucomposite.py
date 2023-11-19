@@ -66,11 +66,18 @@ class Entrante(Menu):
         self.precio = precio
 
     def mostrar(self) -> str:
-        return f"Entrante: {self.nombre} \nPrecio: {self.precio}"
+        print(f"Entrante: {self.nombre} \nPrecio: {self.precio}")
 
 class Pizza(Menu):
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
+    
+    def mostrar(self) -> str:
+        print(f"Pizza: {self.nombre} \nPrecio: {self.precio}")
 
-   ''' def nombre(self) -> str:
+
+''' def nombre(self) -> str:
         pizzas = data["pizza_name"].unique().tolist()
         while True:
             self.nombre_elegido = input(f"Elige la pizza que deseas entre {pizzas}: ")
@@ -83,10 +90,9 @@ class Pizza(Menu):
     def precio(self) -> float:
         pizza_escogida = self.nombre_elegido
         precio = data[data["pizza_name"] == pizza_escogida]["total_price"].unique()
-        return precio[0]
-'''
+        return precio[0]'''
 
-    
+
 
 
 
