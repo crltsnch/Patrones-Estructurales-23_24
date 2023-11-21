@@ -31,4 +31,12 @@ class TestMenus(unittest.TestCase):
         bebida = Bebida("Cola", 2.5)
         postre = Postre("Tarta de queso", 4.5)
 
-        combo.
+        combo.add(entrante)
+        combo.add(pizza)
+        combo.add(bebida)
+        combo.add(postre)
+
+        with patch("sys.stdout") as mock_stdout:
+            combo.mostrar()
+            expected_output = "Combo: Combo 1\nEntrante: salsa cesar , Precio: 3.5\nPizza: The Mediterranean Pizza , Precio: 12.5\nBebida: Cola , Precio: 2.5\nPostre: Tarta de queso , Precio: 4.5\n"
+            self.assertEqual(mock_stdout.getvalue().strip(), expected_output)
