@@ -111,9 +111,7 @@ if __name__ == "__main__":
         menu_personalizado.mostrar()
 
         # Guardar menú personalizado
-       
         guardar_menu_personalizado(menu_personalizado)
-
 
 
 
