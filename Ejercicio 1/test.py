@@ -20,4 +20,15 @@ class TestMenus(unittest.TestCase):
         bebida = Bebida("Cola", 2.5)
         self.assertEqual(bebida.mostrar(), "Bebida: Cola , Precio: 2.5")
     
+    def test_postre(self):
+        postre = Postre("Tarta de queso", 4.5)
+        self.assertEqual(postre.mostrar(), "Postre: Tarta de queso , Precio: 4.5")
     
+    def test_composite_combo(self):
+        combo = CompositeCombo("Combo 1")
+        entrante = Entrante("salsa cesar", 3.5)
+        pizza = Pizza("The Mediterranean Pizza", 12.5)
+        bebida = Bebida("Cola", 2.5)
+        postre = Postre("Tarta de queso", 4.5)
+
+        combo.
