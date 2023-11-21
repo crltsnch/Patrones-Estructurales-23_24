@@ -1,5 +1,6 @@
 from componente import Menu
 
+#Cliente
 def client_code(mensaje, opciones) -> None: 
     """
     El código del cliente funciona con todos los componentes a través de la interfaz base. Vamos a pedirle al cliente si quiere crear su menu o elegir uno ya hecho.
