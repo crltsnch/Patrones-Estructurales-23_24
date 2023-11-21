@@ -10,10 +10,14 @@ Cobertura de casos de borde y validación de correcta funcionalidad en diferente
 class TestMenus(unittest.TestCase):
     def test_entrante(self):
         entrante = Entrante("salsa cesar", 3.5)
-        self.assertEqual(entrante.mostrar(), "Entrante: salsa cesar - Precio: 3.5")
+        self.assertEqual(entrante.mostrar(), "Entrante: salsa cesar , Precio: 3.5")
     
     def test_pizza(self):
         pizza = Pizza("The Mediterranean Pizza", 12.5)
-        self.assertEqual(pizza.mostrar(), "Pizza: The Mediterranean Pizza - Precio: 12.5")
+        self.assertEqual(pizza.mostrar(), "Pizza: The Mediterranean Pizza , Precio: 12.5")
+    
+    def test_bebida(self):
+        bebida = Bebida("Cola", 2.5)
+        self.assertEqual(bebida.mostrar(), "Bebida: Cola , Precio: 2.5")
     
     
