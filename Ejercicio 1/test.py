@@ -21,8 +21,8 @@ class TestMenus(unittest.TestCase):
         self.assertEqual(bebida.mostrar(), "Bebida: Cola , Precio: 2.5")
     
     def test_postre(self):
-        postre = Postre("Tarta de queso", 4.5)
-        self.assertEqual(postre.mostrar(), "Postre: Tarta de queso , Precio: 4.5")
+        postre = Postre("Tarta de queso", 5.5)
+        self.assertEqual(postre.mostrar(), "Postre: Tarta de queso , Precio: 5.5")
     
     def test_composite_combo(self):
         combo = CompositeCombo("Combo 1")
@@ -64,8 +64,8 @@ class TestMenus(unittest.TestCase):
 
         with patch("sys.stdout") as mock_stdout:
             combo_compuesto.mostrar()
-            expectes_output = "Combo Compuesto: combo_compuesto\nCombo: Combo1\nEntrante: salsa cesar , Precio: 3.5\nPizza: The Mediterranean Pizza , Precio: 12.5\nBebida: Cola , Precio: 2.5\nPostre: Tarta de queso , Precio: 4.5\nCombo: Combo 2\nPizza: The Mediterranean Pizza , Precio: 12.5\nPostre: Tarta de queso , Precio: 4.5\nPrecio total del Combo: 40.0\n\nCombo: Combo2\nPizza: The Mediterranean Pizza , Precio: 12.5\nPostre: Tarta de queso , Precio: 4.5\nPrecio total del Combo: 17.0\n\nPrecio total del Combo Compuesto: 57.0\n"
-            self.assertEqual(mock_stdout.getvalue().strip(), expectes_output)
+            expected_output = "Combo Compuesto: combo_compuesto\nCombo: Combo1\nEntrante: salsa cesar , Precio: 3.5\nPizza: The Mediterranean Pizza , Precio: 12.5\nBebida: Cola , Precio: 2.5\nPostre: Tarta de queso , Precio: 4.5\nCombo: Combo 2\nPizza: The Mediterranean Pizza , Precio: 12.5\nPostre: Tarta de queso , Precio: 4.5\nPrecio total del Combo: 40.0\n\nCombo: Combo2\nPizza: The Mediterranean Pizza , Precio: 12.5\nPostre: Tarta de queso , Precio: 4.5\nPrecio total del Combo: 17.0\n\nPrecio total del Combo Compuesto: 57.0\n"
+            self.assertEqual(mock_stdout.getvalue().strip(), expected_output)
     
     def test_client_code(self):
         #Prueba la función de entrada del usuario con entrada válida
@@ -75,3 +75,7 @@ class TestMenus(unittest.TestCase):
         #Prueba la función de entrada del usuario con entrada inválida
         with patch("builtins.input", side_effect=["invalid", "3"]):
             self.assertEqual(client_code("Elige un postre (número): ", list(range(1, 3))), 3)
+
+
+if __name__ == "__main__":
+    unittest.main()
