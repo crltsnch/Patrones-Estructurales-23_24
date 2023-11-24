@@ -95,7 +95,7 @@ class Carpeta(Component):
         results = []
         for child in self._children:
             results.append(child.mostrar())
-        return f"Folder: {self.name} ({', '.join(results)}) {self._tamaño} bytes"
+        return f"Folder: {self.nombre} ({', '.join(results)}) {self._tamaño} bytes"
 
 
 def client_code(component: Component) -> None:
