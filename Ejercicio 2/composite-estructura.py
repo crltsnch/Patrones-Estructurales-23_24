@@ -78,34 +78,24 @@ class Carpeta(Component):
         self._children: List[Component] = []
         self._tamaño = 0
 
-    """
-    A composite object can add or remove other components (both simple or
-    complex) to or from its child list.
-    """
-
     def add(self, component: Component) -> None:
         self._children.append(component)
         component.parent = self
+        self._tamaño += component.get_tamaño()
 
     def remove(self, component: Component) -> None:
         self._children.remove(component)
         component.parent = None
+        self._tamaño -= component.get_tamaño()
 
     def is_composite(self) -> bool:
         return True
 
-    def operation(self) -> str:
-        """
-        The Composite executes its primary logic in a particular way. It
-        traverses recursively through all its children, collecting and summing
-        their results. Since the composite's children pass these calls to their
-        children and so forth, the whole object tree is traversed as a result.
-        """
-
+    def mostrar(self) -> str:
         results = []
         for child in self._children:
-            results.append(child.operation())
-        return f"Branch({'+'.join(results)})"
+            results.append(child.mostrar())
+        return f"Folder: {self.name} ({', '.join(results)}) {self._tamaño} bytes"
 
 
 def client_code(component: Component) -> None:
