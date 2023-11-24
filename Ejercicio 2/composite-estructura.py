@@ -30,6 +30,9 @@ class Component(ABC):
     def mostrar(self) -> str:
         pass
 
+    def get_tamaño(self) -> int:
+        pass
+
 
 class Document(Component):
     """
@@ -46,6 +49,9 @@ class Document(Component):
 
     def mostrar(self) -> str:
         return f"Document: {self.nombre} {self.tipo} {self.tamaño}"
+    
+    def get_tamaño(self) -> int:
+        return self.tamaño
 
 class Link(Component):
     def __init__(self, target: str, tamaño_simbolico: int=0):
@@ -54,15 +60,18 @@ class Link(Component):
 
     def mostrar(self) -> str:
         return f"Link: {self.target} {self.tamaño_simbolico}"
+    
+    def get_tamaño(self) -> int:
+        return self.tamaño_simbolico
 
-class Composite(Component):
+class Carpeta(Component):
     """
     The Composite class represents the complex components that may have
     children. Usually, the Composite objects delegate the actual work to their
     children and then "sum-up" the result.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, nombre: str):
         self._children: List[Component] = []
 
     """
