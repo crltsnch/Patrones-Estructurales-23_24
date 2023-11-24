@@ -103,20 +103,8 @@ def client_code(component: Component) -> None:
     The client code works with all of the components via the base interface.
     """
 
-    print(f"RESULT: {component.operation()}", end="")
+    print(f"RESULT: {component.mostrar()}", end="\n")
 
-
-def client_code2(component1: Component, component2: Component) -> None:
-    """
-    Thanks to the fact that the child-management operations are declared in the
-    base Component class, the client code can work with any component, simple or
-    complex, without depending on their concrete classes.
-    """
-
-    if component1.is_composite():
-        component1.add(component2)
-
-    print(f"RESULT: {component1.operation()}", end="")
 
 
 if __name__ == "__main__":
