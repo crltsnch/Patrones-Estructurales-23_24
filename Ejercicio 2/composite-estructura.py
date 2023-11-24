@@ -31,7 +31,7 @@ class Component(ABC):
         pass
 
 
-class Leaf(Component):
+class Document(Component):
     """
     The Leaf class represents the end objects of a composition. A leaf can't
     have any children.
@@ -39,9 +39,13 @@ class Leaf(Component):
     Usually, it's the Leaf objects that do the actual work, whereas Composite
     objects only delegate to their sub-components.
     """
+    def __init__(self, nombre: str, tipo:str, tamaño:int):
+        self.nombre = nombre
+        self.tipo = tipo
+        self.tamaño = tamaño
 
-    def operation(self) -> str:
-        return "Leaf"
+    def mostrar(self) -> str:
+        return f"Document: {self.nombre} {self.tipo} {self.tamaño}"
 
 
 class Composite(Component):
