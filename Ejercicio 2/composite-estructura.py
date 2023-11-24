@@ -47,6 +47,13 @@ class Document(Component):
     def mostrar(self) -> str:
         return f"Document: {self.nombre} {self.tipo} {self.tamaño}"
 
+class Link(Component):
+    def __init__(self, target: str, tamaño_simbolico: int=0):
+        self.target = target
+        self.tamaño_simbolico = tamaño_simbolico
+
+    def mostrar(self) -> str:
+        return f"Link: {self.target} {self.tamaño_simbolico}"
 
 class Composite(Component):
     """
