@@ -34,7 +34,7 @@ class Component(ABC):
         pass
 
 
-class Document(Component):
+class Documento(Component):
     """
     The Leaf class represents the end objects of a composition. A leaf can't
     have any children.
@@ -102,34 +102,27 @@ def client_code(component: Component) -> None:
     """
     The client code works with all of the components via the base interface.
     """
-
     print(f"RESULT: {component.mostrar()}", end="\n")
 
 
 
 if __name__ == "__main__":
-    # This way the client code can support the simple leaf components...
-    simple = Leaf()
-    print("Client: I've got a simple component:")
-    client_code(simple)
+    ruta_carpeta = Carpeta("Ruta")
+    carpeta1 = Carpeta("Carpeta1")
+    carpeta2 = Carpeta("Carpeta2")
+    documento1 = Documento("Documento1.txt", "txt", 1100)
+    documento2 = Documento("img.jpg", "image", 1200)
+    link1 = Link("Link to Carpeta2", tamaño_simbolico=10)
+
+    ruta_carpeta.add(carpeta1)
+    ruta_carpeta.add(link1)
+    carpeta1.add(documento1)
+    carpeta1.add(carpeta2)
+    carpeta2.add(documento2)
+
+    #Mostrar la estructura del sistema
+    client_code(ruta_carpeta)
     print("\n")
 
-    # ...as well as the complex composites.
-    tree = Composite()
-
-    branch1 = Composite()
-    branch1.add(Leaf())
-    branch1.add(Leaf())
-
-    branch2 = Composite()
-    branch2.add(Leaf())
-
-    tree.add(branch1)
-    tree.add(branch2)
-
-    print("Client: Now I've got a composite tree:")
-    client_code(tree)
-    print("\n")
-
-    print("Client: I don't need to check the components classes even when managing the tree:")
-    client_code2(tree, simple)
+    #Mostrar el tamaño de la carpeta
+    print(f"Tamaño de la carpeta {ruta_carpeta.nombre}: {ruta_carpeta.get_tamaño()} bytes")
