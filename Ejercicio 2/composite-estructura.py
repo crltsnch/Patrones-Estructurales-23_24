@@ -82,11 +82,17 @@ class Carpeta(Component):
         self._children.append(component)
         component.parent = self
         self._tamaño += component.get_tamaño()
+        if component.is_composite():
+            for child in component._children:
+                self._tamaño += child.get_tamaño()
 
     def remove(self, component: Component) -> None:
         self._children.remove(component)
         component.parent = None
         self._tamaño -= component.get_tamaño()
+        if component.is_composite():
+            for child in component._children:
+                self._tamaño -= child.get_tamaño()
 
     def is_composite(self) -> bool:
         return True
@@ -96,6 +102,9 @@ class Carpeta(Component):
         for child in self._children:
             results.append(child.mostrar())
         return f"Folder: {self.nombre} ({', '.join(results)}) {self._tamaño} bytes"
+
+    def get_tamaño(self) -> int:
+        return self._tamaño
 
 
 def client_code(component: Component) -> None:
