@@ -105,7 +105,7 @@ def client_code(component: Component) -> None:
     """
     The client code works with all of the components via the base interface.
     """
-    print(f"RESULT: {component.mostrar()}", end="\n")
+    print(f"RESULT:\n{component.mostrar()}", end="\n")
 
 
 
