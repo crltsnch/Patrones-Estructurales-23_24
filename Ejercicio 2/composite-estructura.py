@@ -53,6 +53,7 @@ class Document(Component):
     def get_tamaño(self) -> int:
         return self.tamaño
 
+
 class Link(Component):
     def __init__(self, target: str, tamaño_simbolico: int=0):
         self.target = target
@@ -64,6 +65,7 @@ class Link(Component):
     def get_tamaño(self) -> int:
         return self.tamaño_simbolico
 
+
 class Carpeta(Component):
     """
     The Composite class represents the complex components that may have
@@ -72,7 +74,9 @@ class Carpeta(Component):
     """
 
     def __init__(self, nombre: str):
+        self.nombre = nombre
         self._children: List[Component] = []
+        self._tamaño = 0
 
     """
     A composite object can add or remove other components (both simple or
