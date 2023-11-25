@@ -120,8 +120,13 @@ class Proxy(Component):
     def mostrar(self) -> str:
         return f"Proxy de Acceso y Registro: {self.documento.mostrar()}"
 
-    
+    def acceder(self, usuario: str) -> None:
+        self.documento.acceder(usuario)
+        solicitud = f"Solicitud de acceso de {usuario} al documento {self.documento.nombre}"
+        self.accesos_registrados.append(solicitud)
 
+
+    
 def client_code(component: Component) -> None:
     """
     The client code works with all of the components via the base interface.
