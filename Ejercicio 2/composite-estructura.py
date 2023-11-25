@@ -57,6 +57,9 @@ class Documento(Component):
     def get_tamaño(self) -> int:
         return self.tamaño
 
+    def acceder(self, usuario: str) -> None:
+        print(f"Acceso a {usuario} al documemnto {self.nombre}")
+
 
 class Link(Component):
     def __init__(self, target: str, tamaño_simbolico: int=0):
