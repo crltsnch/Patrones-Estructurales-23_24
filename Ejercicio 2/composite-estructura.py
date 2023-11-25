@@ -116,7 +116,11 @@ class Proxy(Component):
     def __init__(self, documento: Documento):
         self.documento = documento
         self.accesos_registrados: List[str] = []
-        
+    
+    def mostrar(self) -> str:
+        return f"Proxy de Acceso y Registro: {self.documento.mostrar()}"
+
+    
 
 def client_code(component: Component) -> None:
     """
