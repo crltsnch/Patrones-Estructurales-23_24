@@ -33,6 +33,9 @@ class Component(ABC):
     def get_tamaño(self) -> int:
         pass
 
+    def acceder(self, usuario:str) -> None:
+        pass
+
 
 class Documento(Component):
     """
