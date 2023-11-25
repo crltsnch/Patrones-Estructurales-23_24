@@ -112,7 +112,9 @@ class Carpeta(Component):
     def acceder(self, usuario: str) -> None:
         print(f"Registro de acceso por {usuario} a la carpeta {self.nombre}")
 
+
 class Proxy(Component):
+
     def __init__(self, documento: Documento):
         self.documento = documento
         self.accesos_registrados: List[str] = []
@@ -129,6 +131,8 @@ class Proxy(Component):
         print("Accesos registrados: ")
         for acceso in self.accesos_registrados:
             print(acceso)
+
+
 
 def client_code(component: Component) -> None:
     """
