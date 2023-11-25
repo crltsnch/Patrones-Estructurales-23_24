@@ -72,6 +72,8 @@ class Link(Component):
     def get_tamaño(self) -> int:
         return self.tamaño_simbolico
 
+    def acceder(self, usuario: str) -> None:
+        self.target.acceder(usuario)
 
 class Carpeta(Component):
     """
@@ -106,7 +108,15 @@ class Carpeta(Component):
 
     def get_tamaño(self) -> int:
         return sum([child.get_tamaño() for child in self._children])
+    
+    def acceder(self, usuario: str) -> None:
+        print(f"Acceso a {usuario} a la carpeta {self.nombre}")
 
+class Proxy(Component):
+    def __init__(self, documento: Documento):
+        self.documento = documento
+        self.accesos_registrados: List[str] = []
+        
 
 def client_code(component: Component) -> None:
     """
