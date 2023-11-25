@@ -110,7 +110,7 @@ class Carpeta(Component):
         return sum([child.get_tamaño() for child in self._children])
     
     def acceder(self, usuario: str) -> None:
-        print(f"Acceso a {usuario} a la carpeta {self.nombre}")
+        print(f"Registro de acceso por {usuario} a la carpeta {self.nombre}")
 
 class Proxy(Component):
     def __init__(self, documento: Documento):
@@ -125,8 +125,11 @@ class Proxy(Component):
         solicitud = f"Solicitud de acceso de {usuario} al documento {self.documento.nombre}"
         self.accesos_registrados.append(solicitud)
 
+    def mostrar_registros(self) -> None:
+        print("Accesos registrados: ")
+        for acceso in self.accesos_registrados:
+            print(acceso)
 
-    
 def client_code(component: Component) -> None:
     """
     The client code works with all of the components via the base interface.
