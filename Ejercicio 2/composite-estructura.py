@@ -45,10 +45,11 @@ class Documento(Component):
     Usually, it's the Leaf objects that do the actual work, whereas Composite
     objects only delegate to their sub-components.
     """
-    def __init__(self, nombre: str, tipo:str, tamaño:int):
+    def __init__(self, nombre: str, tipo:str, tamaño:int, sensible: bool = False):
         self.nombre = nombre
         self.tipo = tipo
         self.tamaño = tamaño
+        self.sensible = sensible
 
     def mostrar(self) -> str:
         return f"Document: {self.nombre} {self.tipo} {self.tamaño}"
