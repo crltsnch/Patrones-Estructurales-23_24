@@ -33,7 +33,7 @@ class Component(ABC):
     def get_tamaño(self) -> int:
         pass
 
-    def acceder(self, usuario:str) -> None:
+    def acceder(self) -> None:
         pass
 
 
@@ -74,6 +74,7 @@ class Link(Component):
 
     def acceder(self, usuario: str) -> None:
         self.target.acceder(usuario)
+
 
 class Carpeta(Component):
     """
