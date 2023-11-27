@@ -1,6 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import List
+import json
 
 
 class Component(ABC):
@@ -62,15 +63,15 @@ class Documento(Component):
 
 
 class Link(Component):
-    def __init__(self, target: str, tamaño_simbolico: int=0):
+    def __init__(self, target: str, tamaño: int=0):
         self.target = target
-        self.tamaño_simbolico = tamaño_simbolico
+        self.tamaño = tamaño
 
     def mostrar(self) -> str:
-        return f"Link: {self.target} {self.tamaño_simbolico}"
+        return f"Link: {self.target} {self.tamaño}"
     
     def get_tamaño(self) -> int:
-        return self.tamaño_simbolico
+        return self.tamaño
 
     def acceder(self, usuario: str) -> None:
         self.target.acceder(usuario)
@@ -149,7 +150,7 @@ if __name__ == "__main__":
     carpeta2 = Carpeta("Carpeta2")
     documento1 = Documento("Confidencial.txt", "txt", 1100, sensible=True)
     documento2 = Documento("img.jpg", "image", 1200)
-    link1 = Link("Link to Carpeta2", tamaño_simbolico=10)
+    link1 = Link("Link to Carpeta2", tamaño=10)
 
     proxy_documento1 = Proxy(documento1)
     
@@ -172,3 +173,10 @@ if __name__ == "__main__":
 
     #Mostrar los regristos de acceso del proxy
     proxy_documento1.mostrar_registros()
+
+
+'''class ComponentEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Component):
+            return obj.__dict__
+        return json.JSONEncoder.default(self, obj)'''
