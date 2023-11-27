@@ -114,7 +114,7 @@ class Carpeta(Component):
             "type": self.__class__.__name__,
             "nombre": self.nombre,
             "children": [child.mostrar() for child in self._children],
-            "tamano": self._tamaño
+            "tamano": self.get_tamaño()
         }
 
     def get_tamaño(self) -> int:

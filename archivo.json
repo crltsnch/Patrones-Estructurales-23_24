@@ -25,14 +25,14 @@
             "tamano": 900
           }
         ],
-        "tamano": 1000
+        "tamano": 1900
       },
       {
         "target": "Link to Carpeta2",
         "tamano": 10
       }
     ],
-    "tamano": 10
+    "tamano": 1910
   },
   "Carpeta_Videos": {
     "type": "Carpeta",
@@ -67,6 +67,6 @@
         "tamano": 1200
       }
     ],
-    "tamano": 0
+    "tamano": 2310
   }
 }
