@@ -1,7 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import List
-
+from registros import logger
 
 class Component(ABC):
     """
@@ -61,6 +61,7 @@ class Documento(Component):
     def get_tamaño(self) -> int:
         return self.tamaño
 
+    @logger
     def acceder(self, usuario: str) -> None:
         print(f"Acceso a {usuario} al documemnto {self.nombre}")
 
