@@ -1,7 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import List
-import json
+
 
 
 class Component(ABC):
@@ -28,7 +28,7 @@ class Component(ABC):
         return False
 
     @abstractmethod
-    def mostrar(self) -> str:
+    def mostrar(self) -> dict:
         pass
 
     def get_tamaño(self) -> int:
@@ -52,7 +52,7 @@ class Documento(Component):
         self.tamaño = tamaño
         self.sensible = sensible
 
-    def mostrar(self) -> str:
+    def mostrar(self) -> dict:
         return {
                 "nombre": {self.nombre},
                 "tipo": {self.tipo},
@@ -71,7 +71,7 @@ class Link(Component):
         self.target = target
         self.tamaño = tamaño
 
-    def mostrar(self) -> str:
+    def mostrar(self) -> dict:
         return {
             "target": {self.target},
             "tamaño": {self.tamaño}
@@ -109,7 +109,7 @@ class Carpeta(Component):
     def is_composite(self) -> bool:
         return True
 
-    def mostrar(self) -> str:
+    def mostrar(self) -> dict:
         return {
             "type": self.__class__.__name__,
             "nombre": self.nombre,
@@ -182,7 +182,3 @@ if __name__ == "__main__":
 
     #Mostrar los regristos de acceso del proxy
     proxy_documento1.mostrar_registros()
-
-
-
-
