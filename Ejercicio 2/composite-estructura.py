@@ -1,7 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import List
-
+from typing import List, Union, Dict
+import json
 
 
 class Component(ABC):
@@ -54,9 +54,9 @@ class Documento(Component):
 
     def mostrar(self) -> dict:
         return {
-                "nombre": {self.nombre},
-                "tipo": {self.tipo},
-                "tamaño": {self.tamaño}
+                "nombre": self.nombre,
+                "tipo": self.tipo,
+                "tamano": self.tamaño
                 }
     
     def get_tamaño(self) -> int:
@@ -73,8 +73,8 @@ class Link(Component):
 
     def mostrar(self) -> dict:
         return {
-            "target": {self.target},
-            "tamaño": {self.tamaño}
+            "target": self.target,
+            "tamano": self.tamaño
             }
     
     def get_tamaño(self) -> int:
@@ -114,7 +114,7 @@ class Carpeta(Component):
             "type": self.__class__.__name__,
             "nombre": self.nombre,
             "children": [child.mostrar() for child in self._children],
-            "tamaño": self._tamaño
+            "tamano": self._tamaño
         }
 
     def get_tamaño(self) -> int:
@@ -152,14 +152,29 @@ def client_code(component: Component) -> None:
     print(f"RESULT:\n{component.mostrar()}", end="\n")
 
 
+def guardar_en_json(data: Union[str, int, float, bool, None, Dict], filename: str) -> None:
+    with open('archivo.json', 'w') as json_file:
+        json.dump(data, json_file, indent=2)
+
 
 if __name__ == "__main__":
-    ruta_carpeta = Carpeta("Ruta")
+
+    '''Carpeta 1'''
+    ruta_carpeta = Carpeta("Imagenes")
     carpeta1 = Carpeta("Carpeta1")
     carpeta2 = Carpeta("Carpeta2")
-    documento1 = Documento("Confidencial.txt", "txt", 1100, sensible=True)
-    documento2 = Documento("img.jpg", "image", 1200)
+    documento1 = Documento("Confidencial.txt", "txt", 1000, sensible=True)
+    documento2 = Documento("img.jpg", "image", 900)
     link1 = Link("Link to Carpeta2", tamaño=10)
+
+    '''Carpeta 2'''
+    ruta_carpeta2 = Carpeta("Videos")
+    carpeta3 = Carpeta("Videos vacaciones")
+    carpeta4 = Carpeta("Videos trabajo")
+    documento3 = Documento("video1.mp4", "video", 1100, sensible=True)
+    documento4 = Documento("video2.mp4", "video", 1200)
+    link2 = Link("Link to video1.mp4", tamaño=10)
+
 
     proxy_documento1 = Proxy(documento1)
     
@@ -170,15 +185,31 @@ if __name__ == "__main__":
     carpeta1.add(carpeta2)
     carpeta2.add(documento2)
 
+
+    ruta_carpeta2.add(carpeta3)
+    ruta_carpeta2.add(carpeta4)
+    carpeta3.add(documento3)
+    carpeta3.add(link2)
+    carpeta4.add(documento4)
+
+
     #Mostrar la estructura del sistema
     client_code(ruta_carpeta)
     print("\n")
-
     #Mostrar el tamaño de la carpeta
     print(f"Tamaño de la carpeta {ruta_carpeta.nombre}: {ruta_carpeta.get_tamaño()} bytes")
+    print("\n")
+    client_code(ruta_carpeta2)
+    print("\n")
+    #Mostrar el tamaño de la carpeta
+    print(f"Tamaño de la carpeta {ruta_carpeta2.nombre}: {ruta_carpeta2.get_tamaño()} bytes")
 
     #Intentar acceder al documento1 a través del proxy
     proxy_documento1.acceder(usuario=input("Introduzca su nombre de usuario: "))
 
     #Mostrar los regristos de acceso del proxy
     proxy_documento1.mostrar_registros()
+
+    guardar_en_json(ruta_carpeta.mostrar(), "archivo.json")
+    guardar_en_json(ruta_carpeta2.mostrar(), "archivo.json")
+

@@ -1,0 +1,35 @@
+{
+  "type": "Carpeta",
+  "nombre": "Videos",
+  "children": [
+    {
+      "type": "Carpeta",
+      "nombre": "Videos vacaciones",
+      "children": [
+        {
+          "nombre": "video1.mp4",
+          "tipo": "video",
+          "tamano": 1100
+        },
+        {
+          "target": "Link to video1.mp4",
+          "tamano": 10
+        }
+      ],
+      "tamano": 1110
+    },
+    {
+      "type": "Carpeta",
+      "nombre": "Videos trabajo",
+      "children": [
+        {
+          "nombre": "video2.mp4",
+          "tipo": "video",
+          "tamano": 1200
+        }
+      ],
+      "tamano": 1200
+    }
+  ],
+  "tamano": 0
+}
