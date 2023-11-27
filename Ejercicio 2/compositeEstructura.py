@@ -27,7 +27,7 @@ class Component(ABC):
         return False
 
     @abstractmethod
-    def mostrar(self) -> str:
+    def mostrar(self) -> dict:
         pass
 
     def get_tamaño(self) -> int:
@@ -51,8 +51,12 @@ class Documento(Component):
         self.tamaño = tamaño
         self.sensible = sensible
 
-    def mostrar(self) -> str:
-        return f"Document: {self.nombre} {self.tipo} {self.tamaño}"
+    def mostrar(self) -> dict:
+        return {
+                "nombre": self.nombre,
+                "tipo": self.tipo,
+                "tamano": self.tamaño
+                }
     
     def get_tamaño(self) -> int:
         return self.tamaño
@@ -62,15 +66,18 @@ class Documento(Component):
 
 
 class Link(Component):
-    def __init__(self, target: str, tamaño_simbolico: int=0):
+    def __init__(self, target: str, tamaño: int=0):
         self.target = target
-        self.tamaño_simbolico = tamaño_simbolico
+        self.tamaño = tamaño
 
-    def mostrar(self) -> str:
-        return f"Link: {self.target} {self.tamaño_simbolico}"
+    def mostrar(self) -> dict:
+        return {
+            "target": self.target,
+            "tamano": self.tamaño
+            }
     
     def get_tamaño(self) -> int:
-        return self.tamaño_simbolico
+        return self.tamaño
 
     def acceder(self, usuario: str) -> None:
         self.target.acceder(usuario)
@@ -101,11 +108,13 @@ class Carpeta(Component):
     def is_composite(self) -> bool:
         return True
 
-    def mostrar(self) -> str:
-        results = []
-        for child in self._children:
-            results.append(child.mostrar())
-        return f"Carpeta: {self.nombre} ({', '.join(results)}) {self._tamaño} bytes"
+    def mostrar(self) -> dict:
+        return {
+            "type": self.__class__.__name__,
+            "nombre": self.nombre,
+            "children": [child.mostrar() for child in self._children],
+            "tamano": self.get_tamaño()
+        }
 
     def get_tamaño(self) -> int:
         return sum([child.get_tamaño() for child in self._children])
