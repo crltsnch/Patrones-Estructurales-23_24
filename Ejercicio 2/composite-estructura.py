@@ -167,7 +167,7 @@ if __name__ == "__main__":
     print(f"Tamaño de la carpeta {ruta_carpeta.nombre}: {ruta_carpeta.get_tamaño()} bytes")
 
     #Intentar acceder al documento1 a través del proxy
-    proxy_documento1.acceder("Usuario1")
+    proxy_documento1.acceder(usuario=input("Introduzca su nombre de usuario: "))
 
     #Mostrar los regristos de acceso del proxy
     proxy_documento1.mostrar_registros()
