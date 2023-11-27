@@ -1,35 +1,72 @@
 {
-  "type": "Carpeta",
-  "nombre": "Videos",
-  "children": [
-    {
-      "type": "Carpeta",
-      "nombre": "Videos vacaciones",
-      "children": [
-        {
-          "nombre": "video1.mp4",
-          "tipo": "video",
-          "tamano": 1100
-        },
-        {
-          "target": "Link to video1.mp4",
-          "tamano": 10
-        }
-      ],
-      "tamano": 1110
-    },
-    {
-      "type": "Carpeta",
-      "nombre": "Videos trabajo",
-      "children": [
-        {
-          "nombre": "video2.mp4",
-          "tipo": "video",
-          "tamano": 1200
-        }
-      ],
-      "tamano": 1200
-    }
-  ],
-  "tamano": 0
+  "Carpeta_Imagenes": {
+    "type": "Carpeta",
+    "nombre": "Imagenes",
+    "children": [
+      {
+        "type": "Carpeta",
+        "nombre": "Carpeta1",
+        "children": [
+          {
+            "nombre": "Confidencial.txt",
+            "tipo": "txt",
+            "tamano": 1000
+          },
+          {
+            "type": "Carpeta",
+            "nombre": "Carpeta2",
+            "children": [
+              {
+                "nombre": "img.jpg",
+                "tipo": "image",
+                "tamano": 900
+              }
+            ],
+            "tamano": 900
+          }
+        ],
+        "tamano": 1000
+      },
+      {
+        "target": "Link to Carpeta2",
+        "tamano": 10
+      }
+    ],
+    "tamano": 10
+  },
+  "Carpeta_Videos": {
+    "type": "Carpeta",
+    "nombre": "Videos",
+    "children": [
+      {
+        "type": "Carpeta",
+        "nombre": "Videos vacaciones",
+        "children": [
+          {
+            "nombre": "video1.mp4",
+            "tipo": "video",
+            "tamano": 1100
+          },
+          {
+            "target": "Link to video1.mp4",
+            "tamano": 10
+          }
+        ],
+        "tamano": 1110
+      },
+      {
+        "type": "Carpeta",
+        "nombre": "Videos trabajo",
+        "children": [
+          {
+            "nombre": "video2.mp4",
+            "tipo": "video",
+            "tamano": 1200
+          }
+        ],
+        "tamano": 1200
+      }
+    ],
+    "tamano": 0
+  }
 }
