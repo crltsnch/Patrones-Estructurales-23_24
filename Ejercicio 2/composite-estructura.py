@@ -53,7 +53,11 @@ class Documento(Component):
         self.sensible = sensible
 
     def mostrar(self) -> str:
-        return f"Document: {self.nombre} {self.tipo} {self.tamaño}"
+        return {
+                "nombre": {self.nombre},
+                "tipo": {self.tipo},
+                "tamaño": {self.tamaño}
+                }
     
     def get_tamaño(self) -> int:
         return self.tamaño
@@ -68,7 +72,10 @@ class Link(Component):
         self.tamaño = tamaño
 
     def mostrar(self) -> str:
-        return f"Link: {self.target} {self.tamaño}"
+        return {
+            "target": {self.target},
+            "tamaño": {self.tamaño}
+            }
     
     def get_tamaño(self) -> int:
         return self.tamaño
@@ -103,10 +110,12 @@ class Carpeta(Component):
         return True
 
     def mostrar(self) -> str:
-        results = []
-        for child in self._children:
-            results.append(child.mostrar())
-        return f"Carpeta: {self.nombre} ({', '.join(results)}) {self._tamaño} bytes"
+        return {
+            "type": self.__class__.__name__,
+            "nombre": self.nombre,
+            "children": [child.mostrar() for child in self._children],
+            "tamaño": self._tamaño
+        }
 
     def get_tamaño(self) -> int:
         return sum([child.get_tamaño() for child in self._children])
@@ -175,8 +184,5 @@ if __name__ == "__main__":
     proxy_documento1.mostrar_registros()
 
 
-'''class ComponentEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Component):
-            return obj.__dict__
-        return json.JSONEncoder.default(self, obj)'''
+
+
