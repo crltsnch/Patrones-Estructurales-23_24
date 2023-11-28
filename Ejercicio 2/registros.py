@@ -26,10 +26,11 @@ def registrar(log_entry: dict) -> None:
 def crear_log_entry(func, *args, **kwargs) -> dict:
     usuario = kwargs.get("usuario", "")
     if usuario:
+        nombre_documento = args[0].nombre if args else ''
         log_entry = {
             "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "usuario": usuario,
-            "accion": f"{func.__name__} - {args[0].nombre if args else ''}",
+            "accion": f"{func.__name__} - {nombre_documento}",
             "tipo": "Función",
             "info_extra": f"Información específica de la función - {args[0].nombre if args else ''}"
         }
