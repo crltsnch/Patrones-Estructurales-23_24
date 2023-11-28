@@ -1,5 +1,6 @@
 from typing import List
-from compositeEstructura import Component, Documento
+from componente import Component
+from hojas import Documento
 
 class Proxy(Component):
 
