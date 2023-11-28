@@ -593,3 +593,24 @@ if __name__ == "__main__":
     unittest.main()
 ```
 
+## Ejercicio 2: Sistema Avanzado de Gestión Documental del SAMUR-Protección Civil con Composite y Proxy
+
+
+El SAMUR-Protección Civil enfrenta el desafío de gestionar una gran cantidad de documentos digitales generados durante sus operaciones y activaciones. Esta diversidad incluye informes, registros, así como archivos multimedia como imágenes y vídeos. La prioridad es asegurar un acceso rápido y seguro, especialmente para datos sensibles.
+
+Para abordar esta necesidad, se propone la creación de un sistema avanzado de gestión documental. Este sistema se basa en dos patrones de diseño esenciales: Composite y Proxy.
+
+Estructura de Documentos:
+
+- Documentos: Archivos básicos con atributos como nombre, tipo y tamaño. Los documentos sensibles requerirán un seguimiento detallado.
+- Enlaces (Links): Referencias a otros documentos o carpetas para un acceso rápido.
+- Carpetas: Contenedores que agrupan documentos y enlaces, cuyo tamaño es la suma de sus elementos.
+- Proxy de Acceso: Un intermediario (proxy) garantiza la seguridad y la trazabilidad del acceso a documentos, especialmente los sensibles. Este proxy registra cada acceso y solo permite la entrada a usuarios autorizados.
+
+Objetivos del Ejercicio:
+
+- Utilizar el patrón Composite para modelar la estructura de documentos.
+- Implementar el patrón Proxy para controlar y registrar el acceso.
+- Desarrollar en Python clases y lógica para representar documentos, enlaces y carpetas, asegurando seguridad y trazabilidad.
+- Implementar funciones para facilitar la navegación, creación y modificación de elementos.
+- La solución propuesta busca una gestión integral, combinando la organización efectiva de documentos con un sistema de seguridad sólido. Este enfoque permitirá la administración eficiente de la documentación digital del SAMUR-Protección Civil.
