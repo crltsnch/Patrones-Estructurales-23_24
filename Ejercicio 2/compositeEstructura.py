@@ -105,6 +105,7 @@ class Carpeta(Component):
         self.nombre = nombre
         self._children: List[Component] = []
         self._tamaño = 0
+        self.accesos_registrados: List[str] = []
 
     def add(self, component: Component) -> None:
         self._children.append(component)
@@ -142,8 +143,9 @@ class Carpeta(Component):
                 print(f"Modificado en '{self.nombre}': {child.mostrar()}")
 
     def acceder(self, usuario: str) -> None:
-        print(f"Registro de acceso por {usuario} a la carpeta {self.nombre}")
-
+        registro = f"Registro de acceso por {usuario} a la carpeta {self.nombre}"
+        self.accesos_registrados.append(registro)
+        print(registro) 
 
 def client_code(component: Component) -> None:
     """
