@@ -1,6 +1,7 @@
 from compositeEstructura import *
 from proxy import Proxy
 from guardarArchivos import *
+from registros import *
 
 if __name__ == "__main__":
 
@@ -51,6 +52,7 @@ if __name__ == "__main__":
 
     #Intentar acceder al documento1 a través del proxy
     usuario_ingresado = input("Introduzca su nombre de usuario: ")
+    proxy_documento1.acceder = logger(proxy_documento1.acceder)
     proxy_documento1.acceder(usuario=usuario_ingresado)
 
     #Mostrar los regristos de acceso del proxy

@@ -10,7 +10,7 @@ csv_existe = False
 def verificar_columnas_existentes() -> None:
     global csv_existe
     if not csv_existe:
-        if os.path.exists(csv_archivo):
+        if not os.path.exists(csv_archivo) or os.path.getsize(csv_archivo) == 0:
             with open(csv_archivo, "a", newline='') as csv_file:
                 writer = csv.DictWriter(csv_file, fieldnames=csv_columnas, delimiter=';')
                 writer.writeheader()
@@ -19,7 +19,7 @@ def verificar_columnas_existentes() -> None:
 def registrar(log_entry: dict) -> None:
     verificar_columnas_existentes()
     with open(csv_archivo, "a") as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=csv_columnas)
+        writer = csv.DictWriter(csv_file, fieldnames=csv_columnas, delimiter=';')
         writer.writerow(log_entry)
 
 def crear_log_entry(func, *args, **kwargs) -> dict:
@@ -34,6 +34,7 @@ def crear_log_entry(func, *args, **kwargs) -> dict:
 
 def logger(func):
     def log_and_call(*args, **kwargs):
+        usuario_ingresado = kwargs.get("usuario", "")
         log_entry = crear_log_entry(func, *args, **kwargs)
         registrar(log_entry)
         return func(*args, **kwargs)
