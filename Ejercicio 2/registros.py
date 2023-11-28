@@ -1,16 +1,19 @@
 import csv
 import datetime
+import os
 
-csv_archivo = "registros.csv"
+carpeta_ejercicio2 = "Ejercicio 2"
+csv_archivo = os.path.join(carpeta_ejercicio2, "registros.csv")
 csv_columnas = ["timestamp", "usuario", "accion", "tipo", "info_extra"]
 csv_existe = False
 
 def verificar_columnas_existentes() -> None:
     global csv_existe
-    if csv_existe:
-        with open(csv_archivo, "a", newline='') as csv_file:
-            writer = csv.DictWriter(csv_file, fieldnames=csv_columnas)
-            writer.writeheader()
+    if not csv_existe:
+        if os.path.exists(csv_archivo):
+            with open(csv_archivo, "a", newline='') as csv_file:
+                writer = csv.DictWriter(csv_file, fieldnames=csv_columnas, delimiter=';')
+                writer.writeheader()
         csv_existe = True
 
 def registrar(log_entry: dict) -> None:
