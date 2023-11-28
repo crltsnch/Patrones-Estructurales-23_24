@@ -45,33 +45,42 @@ if __name__ == "__main__":
     #Mostrar el tamaño de la carpeta
     print(f"Tamaño de la carpeta {ruta_carpeta2.nombre}: {ruta_carpeta2.get_tamaño()} bytes")
 
-    '''Modificaciones'''
-    documentos_carpeta = [child for child in ruta_carpeta._children if isinstance(child, Documento)]
-    if documentos_carpeta:
-        print("\nSeleccione el documento a modificar: ")
-        for i, doc in enumerate(documentos_carpeta, start=1):
-            print(f"{i}. {doc.nombre}")
+
+    while True:
+        # Preguntar al usuario si desea realizar alguna modificación
+        modificar = input("¿Deseas realizar alguna modificación? (si/no): ").lower()
+
+        if modificar == 'si':
+            # Solicitar el nombre del componente a modificar
+            documento_modificar = input("Introduzca el nombre del componente a modificar: ")
+            # Solicitar el nuevo nombre del componente
+            nuevo_nombre = input("Introduzca el nuevo nombre del componente: ")
+
+            ruta_carpeta.modificar(documento_modificar, nuevo_nombre)
+            
+        else:
+            break
         
-        seleccion = int(input("Ingrese el número del documento (0 para cancelar): "))
-        if 0 < seleccion <= len(documentos_carpeta):
-            seleccion = documentos_carpeta[seleccion-1]
-            #Modificar el documento seleccionado
-            nuevo_nombre = input(f"Ingrese el nuevo nombre para {seleccion.nombre}: ")
+        # Preguntar al usuario si desea acceder a algún documento
+        acceder = input("¿Deseas acceder a algún documento? (si/no): ").lower()
+        
+        if acceder == 'si':
+            proxy_documento1 = Proxy(documento1)
+            proxy_documento2 = Proxy(documento2)
+            # Solicitar el nombre del usuario normal
+            usuario_ingresado = input("Introduzca su nombre de usuario: ")
+            proxy_documento1.acceder = logger(proxy_documento1.acceder)
+            proxy_documento2.acceder = logger(proxy_documento2.acceder)
+            
+            if usuario_ingresado:
+                proxy_documento1.acceder(usuario=usuario_ingresado)
+                proxy_documento2.acceder(usuario=usuario_ingresado)
 
-    '''Proxy para acceder a los documentos'''
-    proxy_documento1 = Proxy(documento1)
-    proxy_documento2 = Proxy(documento2)
-    #Intentar acceder al documento1 a través del proxy
-    usuario_ingresado = input("Introduzca su nombre de usuario: ")
-    proxy_documento1.acceder = logger(proxy_documento1.acceder)
-    proxy_documento2.acceder = logger(proxy_documento2.acceder)
-    if usuario_ingresado:
-        proxy_documento1.acceder(usuario=usuario_ingresado)
-        proxy_documento2.acceder(usuario=usuario_ingresado)
+            # Mostrar los registros de acceso del proxy
+            proxy_documento1.mostrar_registros()
 
-    #Mostrar los regristos de acceso del proxy
-    proxy_documento1.mostrar_registros()
+        else:
+            break
 
+    # Guardar en JSON
     guardar_en_json(ruta_carpeta.mostrar(), "archivo.json")
-    guardar_en_json(ruta_carpeta2.mostrar(), "archivo.json")
-

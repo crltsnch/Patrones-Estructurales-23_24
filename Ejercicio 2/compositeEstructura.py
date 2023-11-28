@@ -127,6 +127,17 @@ class Carpeta(Component):
 
     def get_tamaño(self) -> int:
         return sum([child.get_tamaño() for child in self._children])
+    
+    def modificar(self, nombre_documento: str, nuevo_nombre: str) -> None:
+        """
+        Modificar el nombre de un componente en la carpeta y sus subcarpetas si es necesario.
+        """
+        for child in self._children:
+            if isinstance(child, Carpeta) and child.is_composite():
+                child.modificar(nombre_documento, nuevo_nombre)
+            elif isinstance(child, Documento) and child.nombre == nombre_documento:
+                child.modificar(nuevo_nombre)
+                print(f"Modificado en '{self.nombre}': {child.mostrar()}")
 
     def acceder(self, usuario: str) -> None:
         print(f"Registro de acceso por {usuario} a la carpeta {self.nombre}")
