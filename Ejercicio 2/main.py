@@ -21,8 +21,6 @@ if __name__ == "__main__":
     documento4 = Documento("video2.mp4", "video", 1200)
     link2 = Link("Link to video1.mp4", tamaño=10)
 
-
-    proxy_documento1 = Proxy(documento1)
     
     #Construir la estructura del sistema
     ruta_carpeta.add(carpeta1)
@@ -50,11 +48,15 @@ if __name__ == "__main__":
     #Mostrar el tamaño de la carpeta
     print(f"Tamaño de la carpeta {ruta_carpeta2.nombre}: {ruta_carpeta2.get_tamaño()} bytes")
 
+    proxy_documento1 = Proxy(documento1)
+    proxy_documento2 = Proxy(documento2)
     #Intentar acceder al documento1 a través del proxy
     usuario_ingresado = input("Introduzca su nombre de usuario: ")
     proxy_documento1.acceder = logger(proxy_documento1.acceder)
+    proxy_documento2.acceder = logger(proxy_documento2.acceder)
     if usuario_ingresado:
         proxy_documento1.acceder(usuario=usuario_ingresado)
+        proxy_documento2.acceder(usuario=usuario_ingresado)
 
     #Mostrar los regristos de acceso del proxy
     proxy_documento1.mostrar_registros()
