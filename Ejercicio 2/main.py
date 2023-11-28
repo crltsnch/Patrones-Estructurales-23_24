@@ -52,8 +52,11 @@ if __name__ == "__main__":
         for i, doc in enumerate(documentos_carpeta, start=1):
             print(f"{i}. {doc.nombre}")
         
-        
-    
+        seleccion = int(input("Ingrese el número del documento (0 para cancelar): "))
+        if 0 < seleccion <= len(documentos_carpeta):
+            seleccion = documentos_carpeta[seleccion-1]
+            #Modificar el documento seleccionado
+            nuevo_nombre = input(f"Ingrese el nuevo nombre para {seleccion.nombre}: ")
 
     '''Proxy para acceder a los documentos'''
     proxy_documento1 = Proxy(documento1)
