@@ -57,11 +57,12 @@ if __name__ == "__main__":
             nuevo_nombre = input("Introduzca el nuevo nombre del componente: ")
 
             ruta_carpeta.modificar(documento_modificar, nuevo_nombre)
-            
+            break 
+
         else:
             break
-        
-        # Preguntar al usuario si desea acceder a algún documento
+    
+    while True:
         acceder = input("¿Deseas acceder a algún documento? (si/no): ").lower()
         
         if acceder == 'si':
@@ -71,16 +72,18 @@ if __name__ == "__main__":
             usuario_ingresado = input("Introduzca su nombre de usuario: ")
             proxy_documento1.acceder = logger(proxy_documento1.acceder)
             proxy_documento2.acceder = logger(proxy_documento2.acceder)
-            
+                
             if usuario_ingresado:
                 proxy_documento1.acceder(usuario=usuario_ingresado)
                 proxy_documento2.acceder(usuario=usuario_ingresado)
 
             # Mostrar los registros de acceso del proxy
             proxy_documento1.mostrar_registros()
+            break
 
         else:
             break
+
 
     # Guardar en JSON
     guardar_en_json(ruta_carpeta.mostrar(), "archivo.json")
