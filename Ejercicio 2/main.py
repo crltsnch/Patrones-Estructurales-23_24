@@ -5,7 +5,8 @@ from registros import *
 
 if __name__ == "__main__":
 
-    '''Carpeta 1'''
+    '''Contruir  estructuras'''
+    #Carpeta 1
     ruta_carpeta = Carpeta("Imagenes")
     carpeta1 = Carpeta("Carpeta1")
     carpeta2 = Carpeta("Carpeta2")
@@ -13,7 +14,7 @@ if __name__ == "__main__":
     documento2 = Documento("img.jpg", "image", 900)
     link1 = Link("Link to Carpeta2", tamaño=10)
 
-    '''Carpeta 2'''
+    #Carpeta 2
     ruta_carpeta2 = Carpeta("Videos")
     carpeta3 = Carpeta("Videos vacaciones")
     carpeta4 = Carpeta("Videos trabajo")
@@ -21,8 +22,6 @@ if __name__ == "__main__":
     documento4 = Documento("video2.mp4", "video", 1200)
     link2 = Link("Link to video1.mp4", tamaño=10)
 
-    
-    #Construir la estructura del sistema
     ruta_carpeta.add(carpeta1)
     ruta_carpeta.add(link1)
     carpeta1.add(documento1)
@@ -46,9 +45,12 @@ if __name__ == "__main__":
     #Mostrar el tamaño de la carpeta
     print(f"Tamaño de la carpeta {ruta_carpeta2.nombre}: {ruta_carpeta2.get_tamaño()} bytes")
 
-    #Modificaciones
+   '''Modificaciones'''
+    #cambiar nombre de documento1
+    nombre = input("Introduzca el nuevo nombre de confidencial.txt: ")
+    print(documento1.modificar("Confidencial.txt"))
 
-    #Usar proxy para docuemntos
+    '''Proxy para acceder a los documentos'''
     proxy_documento1 = Proxy(documento1)
     proxy_documento2 = Proxy(documento2)
     #Intentar acceder al documento1 a través del proxy

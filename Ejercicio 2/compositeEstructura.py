@@ -87,11 +87,6 @@ class Link(Component):
     
     def get_tamaño(self) -> int:
         return self.tamaño
-    
-    def modificar(self, nuevo_target: str) -> None:
-        #cambiar el destino del link
-        self.target = nuevo_target
-        return f"Link {self.target} cambiado a: {nuevo_target}"
 
     def acceder(self, usuario: str) -> None:
         self.target.acceder(usuario)
@@ -132,11 +127,6 @@ class Carpeta(Component):
 
     def get_tamaño(self) -> int:
         return sum([child.get_tamaño() for child in self._children])
-    
-    def modificar(self, nuevo_nombre: str) -> None:
-        #cambiar el nombre de la carpeta
-        self.nombre = nuevo_nombre
-        return f"Carpeta {self.nombre} cambiada a: {nuevo_nombre}"
 
     def acceder(self, usuario: str) -> None:
         print(f"Registro de acceso por {usuario} a la carpeta {self.nombre}")
