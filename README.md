@@ -6,6 +6,28 @@ El link a mi repositorio es: [GitHub](https://github.com/crltsnch/Patrones-Estru
 
 Buscamos expandir la oferta permitiendo a los clientes crear menús personalizados que incluyan entradas, bebidas, pizzas y postres. Los menús pueden ser simples o compuestos, con precios calculados según la suma de los elementos y descuentos aplicados. Utilizamos el patrón Composite para modelar la relación entre elementos y menús. Usamos CSV para almacenar y recuperar información de menús, reconstruyendo la estructura con eficiencia en tiempo de ejecución. Hemos implementado de forma modular, orientada a objetos y cumpliendo las restricciones especificadas.
 
+¿Por qué utilizar el patrón Composite?
+1. Jerarquía de Componentes:
+En el contexto de un menú de pizzería, hay elementos individuales (entrantes, pizzas, bebidas, postres) y también combos que pueden contener tanto elementos individuales como otros combos. El patrón Composite facilita la representación de esta jerarquía en una estructura de árbol, donde cada componente puede ser tratado de manera uniforme.
+
+2. Tratamiento Uniforme:
+
+Al utilizar el patrón Composite, se puede aplicar de manera uniforme la lógica del menú a elementos individuales y a combinaciones de elementos. Esto simplifica el código, ya que las operaciones, como la visualización (mostrar) y el cálculo del precio total (precio_total), se aplican de la misma manera a todos los elementos, independientemente de si son simples o compuestos.
+
+3. Composición Dinámica:
+
+La composición dinámica de elementos individuales y compuestos permite la creación flexible de menús personalizados y la construcción de combos complejos sin tener que modificar el código existente. Esto hace que el sistema sea más flexible y fácil de extender a medida que se introducen nuevos elementos o se realizan cambios en la estructura del menú.
+
+4. Simplicidad y Mantenibilidad:
+
+El patrón Composite simplifica el código al tratar todos los elementos de manera consistente. Esto mejora la mantenibilidad del sistema, ya que las operaciones se aplican de manera coherente a través de la jerarquía de componentes. Además, facilita la adición de nuevos tipos de elementos en el futuro sin alterar la estructura existente.
+
+5. Estructura de Árbol:
+
+La representación de los elementos del menú como nodos en un árbol a través del patrón Composite refleja naturalmente la estructura jerárquica de los menús y combos en una pizzería. Esto hace que el código sea más intuitivo y fácil de comprender para otros desarrolladores.
+
+En resumen, el patrón Composite lo elegimos para gestionar la complejidad de la jerarquía de elementos en los menús de la pizzería, ofreciendo una solución elegante, flexible y fácil de mantener para representar y operar con elementos individuales y combinaciones de ellos.
+
 La carpeta pizzas contiene la creacion de pizzas con patrón builder realizada anteriormente. Nuestro plantUML para la creación de menús es:
 
 ![menus](https://github.com/crltsnch/Patrones-Estructurales-23_24/assets/91721777/da6512ad-090a-40a8-bf84-0d8d9b897d7a)
