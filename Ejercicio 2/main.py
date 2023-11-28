@@ -45,10 +45,15 @@ if __name__ == "__main__":
     #Mostrar el tamaño de la carpeta
     print(f"Tamaño de la carpeta {ruta_carpeta2.nombre}: {ruta_carpeta2.get_tamaño()} bytes")
 
-   '''Modificaciones'''
-    #cambiar nombre de documento1
-    nombre = input("Introduzca el nuevo nombre de confidencial.txt: ")
-    print(documento1.modificar("Confidencial.txt"))
+    '''Modificaciones'''
+    documentos_carpeta = [child for child in ruta_carpeta._children if isinstance(child, Documento)]
+    if documentos_carpeta:
+        print("\nSeleccione el documento a modificar: ")
+        for i, doc in enumerate(documentos_carpeta, start=1):
+            print(f"{i}. {doc.nombre}")
+        
+        
+    
 
     '''Proxy para acceder a los documentos'''
     proxy_documento1 = Proxy(documento1)
