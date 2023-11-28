@@ -29,13 +29,11 @@ if __name__ == "__main__":
     carpeta1.add(carpeta2)
     carpeta2.add(documento2)
 
-
     ruta_carpeta2.add(carpeta3)
     ruta_carpeta2.add(carpeta4)
     carpeta3.add(documento3)
     carpeta3.add(link2)
     carpeta4.add(documento4)
-
 
     #Mostrar la estructura del sistema
     client_code(ruta_carpeta)
@@ -48,6 +46,9 @@ if __name__ == "__main__":
     #Mostrar el tamaño de la carpeta
     print(f"Tamaño de la carpeta {ruta_carpeta2.nombre}: {ruta_carpeta2.get_tamaño()} bytes")
 
+    #Modificaciones
+
+    #Usar proxy para docuemntos
     proxy_documento1 = Proxy(documento1)
     proxy_documento2 = Proxy(documento2)
     #Intentar acceder al documento1 a través del proxy

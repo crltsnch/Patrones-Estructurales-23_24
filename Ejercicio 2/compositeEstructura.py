@@ -36,6 +36,9 @@ class Component(ABC):
     def acceder(self) -> None:
         pass
 
+    def modificar(self) -> None:
+        pass
+
 
 class Documento(Component):
     """
@@ -60,6 +63,10 @@ class Documento(Component):
     
     def get_tamaño(self) -> int:
         return self.tamaño
+    
+    def modificar(self, nuevo_nombre:str) -> None:
+        self.nombre = nuevo_nombre
+        return f"Documento {self.nombre} cambiado nombre a: {nuevo_nombre}"
 
     @logger
     def acceder(self, usuario: str) -> None:
