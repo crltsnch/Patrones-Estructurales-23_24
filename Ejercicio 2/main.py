@@ -53,7 +53,8 @@ if __name__ == "__main__":
     #Intentar acceder al documento1 a través del proxy
     usuario_ingresado = input("Introduzca su nombre de usuario: ")
     proxy_documento1.acceder = logger(proxy_documento1.acceder)
-    proxy_documento1.acceder(usuario=usuario_ingresado)
+    if usuario_ingresado:
+        proxy_documento1.acceder(usuario=usuario_ingresado)
 
     #Mostrar los regristos de acceso del proxy
     proxy_documento1.mostrar_registros()

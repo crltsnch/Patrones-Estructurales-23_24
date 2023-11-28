@@ -20,21 +20,24 @@ def registrar(log_entry: dict) -> None:
     verificar_columnas_existentes()
     with open(csv_archivo, "a") as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=csv_columnas, delimiter=';')
-        writer.writerow(log_entry)
+        if log_entry: #Si el log_entry no está vacío
+            writer.writerow(log_entry)
 
 def crear_log_entry(func, *args, **kwargs) -> dict:
-    log_entry = {
-        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "usuario": kwargs.get("usuario", ""),
-        "accion": f"{func.__name__} - {args[0].nombre if args else ''}",
-        "tipo": "Función",
-        "info_extra": f"Información específica de la función - {args[0].nombre if args else ''}"
-    }
-    return log_entry
+    usuario = kwargs.get("usuario", "")
+    if usuario:
+        log_entry = {
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "usuario": usuario,
+            "accion": f"{func.__name__} - {args[0].nombre if args else ''}",
+            "tipo": "Función",
+            "info_extra": f"Información específica de la función - {args[0].nombre if args else ''}"
+        }
+        return log_entry
+    return {}
 
 def logger(func):
     def log_and_call(*args, **kwargs):
-        usuario_ingresado = kwargs.get("usuario", "")
         log_entry = crear_log_entry(func, *args, **kwargs)
         registrar(log_entry)
         return func(*args, **kwargs)
