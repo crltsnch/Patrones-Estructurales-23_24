@@ -2,6 +2,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import List
 from registros import logger
+import logging
 
 class Component(ABC):
     """
@@ -71,7 +72,8 @@ class Documento(Component):
 
     @logger
     def acceder(self, usuario: str) -> None:
-        print(f"Acceso a {usuario} al documemnto {self.nombre}")
+        #print(f"Acceso a {usuario} al documemnto {self.nombre}")
+        logging.info(f"Acceso a {usuario} aaaaaaaa {self.nombre}")
 
 
 class Link(Component):
