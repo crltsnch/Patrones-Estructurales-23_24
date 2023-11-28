@@ -614,3 +614,436 @@ Objetivos del Ejercicio:
 - Desarrollar en Python clases y lógica para representar documentos, enlaces y carpetas, asegurando seguridad y trazabilidad.
 - Implementar funciones para facilitar la navegación, creación y modificación de elementos.
 - La solución propuesta busca una gestión integral, combinando la organización efectiva de documentos con un sistema de seguridad sólido. Este enfoque permitirá la administración eficiente de la documentación digital del SAMUR-Protección Civil.
+
+El archivo "archivo.json" estamos guardando los documentos y carpetas creados.
+![samur](https://github.com/crltsnch/Patrones-Estructurales-23_24/assets/91721777/1e61e1e5-3d7e-42a6-9a12-78cbb86bcbb8)
+
+### componente.py
+Interfaz.
+```
+from __future__ import annotations
+from abc import ABC, abstractmethod
+from typing import List
+
+
+class Component(ABC):
+    """
+    The base Component class declares common operations for both simple and
+    complex objects of a composition.
+    """
+
+    @property
+    def parent(self) -> Component:
+        return self._parent
+
+    @parent.setter
+    def parent(self, parent: Component):
+        self._parent = parent
+
+    def add(self, component: Component) -> None:
+        pass
+
+    def remove(self, component: Component) -> None:
+        pass
+
+    def is_composite(self) -> bool:
+        return False
+
+    @abstractmethod
+    def mostrar(self) -> dict:
+        pass
+
+    def get_tamaño(self) -> int:
+        pass
+
+    def acceder(self) -> None:
+        pass
+
+    def modificar(self) -> None:
+        pass
+```
+
+### hojas.py
+Aquí definimos las hojas.
+```
+from componente import Component
+from registros import logger
+import logging
+
+
+class Documento(Component):
+    """
+    The Leaf class represents the end objects of a composition. A leaf can't
+    have any children.
+
+    Usually, it's the Leaf objects that do the actual work, whereas Composite
+    objects only delegate to their sub-components.
+    """
+    def __init__(self, nombre: str, tipo:str, tamaño:int, sensible: bool = False):
+        self.nombre = nombre
+        self.tipo = tipo
+        self.tamaño = tamaño
+        self.sensible = sensible
+
+    def mostrar(self) -> dict:
+        return {
+                "nombre": self.nombre,
+                "tipo": self.tipo,
+                "tamano": self.tamaño
+                }
+    
+    def get_tamaño(self) -> int:
+        return self.tamaño
+    
+    def modificar(self, nuevo_nombre:str) -> None:
+        #cambiar el nombre del documento
+        self.nombre = nuevo_nombre
+        return f"Documento {self.nombre} cambiado nombre a: {nuevo_nombre}"
+
+    @logger
+    def acceder(self, usuario: str) -> None:
+        #print(f"Acceso a {usuario} al documemnto {self.nombre}")
+        logging.info(f"Acceso a {usuario} aaaaaaaa {self.nombre}")
+
+
+class Link(Component):
+    def __init__(self, target: str, tamaño: int=0):
+        self.target = target
+        self.tamaño = tamaño
+
+    def mostrar(self) -> dict:
+        return {
+            "target": self.target,
+            "tamano": self.tamaño
+            }
+    
+    def get_tamaño(self) -> int:
+        return self.tamaño
+
+    def acceder(self, usuario: str) -> None:
+        self.target.acceder(usuario)
+```
+
+
+### composite.py
+Aquí creamos las carpetas composicion de hojas.
+```
+from __future__ import annotations
+from componente import Component
+from typing import List
+from hojas import Documento, Link
+
+
+class Carpeta(Component):
+    """
+    The Composite class represents the complex components that may have
+    children. Usually, the Composite objects delegate the actual work to their
+    children and then "sum-up" the result.
+    """
+
+    def __init__(self, nombre: str):
+        self.nombre = nombre
+        self._children: List[Component] = []
+        self._tamaño = 0
+        self.accesos_registrados: List[str] = []
+
+    def add(self, component: Component) -> None:
+        self._children.append(component)
+        component.parent = self
+        self._tamaño += component.get_tamaño()
+
+    def remove(self, component: Component) -> None:
+        self._children.remove(component)
+        component.parent = None
+        self._tamaño -= component.get_tamaño()
+
+    def is_composite(self) -> bool:
+        return True
+
+    def mostrar(self) -> dict:
+        return {
+            "type": self.__class__.__name__,
+            "nombre": self.nombre,
+            "children": [child.mostrar() for child in self._children],
+            "tamano": self.get_tamaño()
+        }
+
+    def get_tamaño(self) -> int:
+        return sum([child.get_tamaño() for child in self._children])
+    
+    def modificar(self, nombre_documento: str, nuevo_nombre: str) -> None:
+        """
+        Modificar el nombre de un componente en la carpeta y sus subcarpetas si es necesario.
+        """
+        for child in self._children:
+            if isinstance(child, Carpeta) and child.is_composite():
+                child.modificar(nombre_documento, nuevo_nombre)
+            elif isinstance(child, Documento) and child.nombre == nombre_documento:
+                child.modificar(nuevo_nombre)
+                print(f"Modificado en '{self.nombre}': {child.mostrar()}")
+
+    def acceder(self, usuario: str) -> None:
+        registro = f"Registro de acceso por {usuario} a la carpeta {self.nombre}"
+        self.accesos_registrados.append(registro)
+        print(registro) 
+```
+
+### codigocliente.py
+```
+from __future__ import annotations
+from componente import Component
+
+def client_code(component: Component) -> None:
+    """
+    The client code works with all of the components via the base interface.
+    """
+    print(f"RESULT:\n{component.mostrar()}", end="\n")
+```
+
+### guardarArchivos.py
+Aqui es donde estamos creando el json antes mencionado para guardar los documentos y las carpetas creadas.
+```
+import os
+import json
+from typing import Dict, Union
+
+def guardar_en_json(data: Union[str, int, float, bool, None, Dict], filename: str) -> None:
+    if os.path.exists(filename):
+        # Si el archivo JSON ya existe, cargamos los datos existentes
+        with open(filename, 'r') as json_file:
+            existing_data = json.load(json_file)
+    else:
+        # Si el archivo no existe, creamos un diccionario vacío
+        existing_data = {}
+
+    # Asignamos el nuevo dato con una clave única (puedes adaptar esto según tus necesidades)
+    key = f"{data['type']}_{data['nombre']}"
+    existing_data[key] = data
+
+    # Guardamos el diccionario actualizado en el archivo JSON
+    with open(filename, 'w') as json_file:
+        json.dump(existing_data, json_file, indent=2)
+```
+
+
+### proxy.py
+Implemento proxy de acceso a los documentos y proxy de registro registrando el acceso del usuario.
+```
+from typing import List
+from componente import Component
+from hojas import Documento
+
+class Proxy(Component):
+
+    def __init__(self, documento: Documento):
+        self.documento = documento
+        self.accesos_registrados: List[str] = []
+    
+    def mostrar(self) -> str:
+        return f"Proxy de Acceso y Registro: {self.documento.mostrar()}"
+
+    def acceder(self, usuario: str) -> None:
+        self.documento.acceder(usuario)
+        solicitud = f"Solicitud de acceso de {usuario} al documento {self.documento.nombre}"
+        self.accesos_registrados.append(solicitud)
+
+    def mostrar_registros(self) -> None:
+        print("Accesos registrados: ")
+        for acceso in self.accesos_registrados:
+            print(acceso)
+```
+
+### main.py
+Aquí he creado los documentos, las carpetas y el acceso o no de los documentos.
+```
+from componente import *
+from hojas import *
+from composite import *
+from codigocliente import client_code
+from proxy import Proxy
+from guardarArchivos import *
+from registros import *
+
+if __name__ == "__main__":
+
+    '''Contruir  estructuras'''
+    #Carpeta 1
+    ruta_carpeta = Carpeta("Imagenes")
+    carpeta1 = Carpeta("Carpeta1")
+    carpeta2 = Carpeta("Carpeta2")
+    documento1 = Documento("Confidencial.txt", "txt", 1000, sensible=True)
+    documento2 = Documento("img.jpg", "image", 900)
+    link1 = Link("Link to Carpeta2", tamaño=10)
+
+    #Carpeta 2
+    ruta_carpeta2 = Carpeta("Videos")
+    carpeta3 = Carpeta("Videos vacaciones")
+    carpeta4 = Carpeta("Videos trabajo")
+    documento3 = Documento("video1.mp4", "video", 1100, sensible=True)
+    documento4 = Documento("video2.mp4", "video", 1200)
+    link2 = Link("Link to video1.mp4", tamaño=10)
+
+    ruta_carpeta.add(carpeta1)
+    ruta_carpeta.add(link1)
+    carpeta1.add(documento1)
+    carpeta1.add(carpeta2)
+    carpeta2.add(documento2)
+
+    ruta_carpeta2.add(carpeta3)
+    ruta_carpeta2.add(carpeta4)
+    carpeta3.add(documento3)
+    carpeta3.add(link2)
+    carpeta4.add(documento4)
+
+    #Mostrar la estructura del sistema
+    client_code(ruta_carpeta)
+    print("\n")
+    #Mostrar el tamaño de la carpeta
+    print(f"Tamaño de la carpeta {ruta_carpeta.nombre}: {ruta_carpeta.get_tamaño()} bytes")
+    print("\n")
+    client_code(ruta_carpeta2)
+    print("\n")
+    #Mostrar el tamaño de la carpeta
+    print(f"Tamaño de la carpeta {ruta_carpeta2.nombre}: {ruta_carpeta2.get_tamaño()} bytes")
+
+
+    while True:
+        # Preguntar al usuario si desea realizar alguna modificación
+        modificar = input("¿Deseas realizar alguna modificación? (si/no): ").lower()
+
+        if modificar == 'si':
+            # Solicitar el nombre del componente a modificar
+            documento_modificar = input("Introduzca el nombre del componente a modificar: ")
+            # Solicitar el nuevo nombre del componente
+            nuevo_nombre = input("Introduzca el nuevo nombre del componente: ")
+
+            ruta_carpeta.modificar(documento_modificar, nuevo_nombre)
+            break 
+
+        else:
+            break
+    
+    while True:
+        acceder = input("¿Deseas acceder a algún documento? (si/no): ").lower()
+        
+        if acceder == 'si':
+            proxy_documento1 = Proxy(documento1)
+            proxy_documento2 = Proxy(documento2)
+            # Solicitar el nombre del usuario normal
+            usuario_ingresado = input("Introduzca su nombre de usuario: ")
+            proxy_documento1.acceder = logger(proxy_documento1.acceder)
+            proxy_documento2.acceder = logger(proxy_documento2.acceder)
+                
+            if usuario_ingresado:
+                proxy_documento1.acceder(usuario=usuario_ingresado)
+                proxy_documento2.acceder(usuario=usuario_ingresado)
+
+            # Mostrar los registros de acceso del proxy
+            proxy_documento1.mostrar_registros()
+            break
+
+        else:
+            break
+
+
+    # Guardar en JSON
+    guardar_en_json(ruta_carpeta.mostrar(), "archivo.json")
+```
+
+### registros.py
+He utilizado el decorador @logger para hacer registros, guardándo en un csv los movimientos. Guardándolo en registros.csv.
+```
+import csv
+import datetime
+import os
+
+carpeta_ejercicio2 = "Ejercicio 2"
+csv_archivo = os.path.join(carpeta_ejercicio2, "registros.csv")
+csv_columnas = ["timestamp", "usuario", "accion", "tipo", "info_extra"]
+csv_existe = False
+
+def verificar_columnas_existentes() -> None:
+    global csv_existe
+    if not csv_existe:
+        if not os.path.exists(csv_archivo) or os.path.getsize(csv_archivo) == 0:
+            with open(csv_archivo, "a", newline='') as csv_file:
+                writer = csv.DictWriter(csv_file, fieldnames=csv_columnas, delimiter=';')
+                writer.writeheader()
+        csv_existe = True
+
+def registrar(log_entry: dict) -> None:
+    verificar_columnas_existentes()
+    with open(csv_archivo, "a") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=csv_columnas, delimiter=';')
+        if log_entry: #Si el log_entry no está vacío
+            writer.writerow(log_entry)
+
+def crear_log_entry(func, *args, **kwargs) -> dict:
+    usuario = kwargs.get("usuario", "")
+    if usuario:
+        nombre_documento = args[0].nombre if args else ''
+        log_entry = {
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "usuario": usuario,
+            "accion": f"{func.__name__} - {nombre_documento}",
+            "tipo": "Función",
+            "info_extra": f"Información específica de la función - {args[0].nombre if args else ''}"
+        }
+        return log_entry
+    return {}
+
+def logger(func):
+    def log_and_call(*args, **kwargs):
+        log_entry = crear_log_entry(func, *args, **kwargs)
+        registrar(log_entry)
+        return func(*args, **kwargs)
+
+    return log_and_call
+```
+
+### test.py
+Por último hemos implementado tests.
+```
+import unittest
+import os
+import json
+from io import StringIO
+from unittest.mock import patch
+from compositeEstructura import *
+from proxy import *
+from registros import *
+from guardarArchivos import *
+
+class TestEstructuraComposite(unittest.TestCase):
+    def setUp(self):
+        self.ruta_carpeta = Carpeta("Documentos")
+        self.usuario_prueba = "usuario_prueba"
+    
+    def test_acceso(self):
+        documento_confidencial = Documento("Confidencial.txt", "txt", 1000, sensible=True)
+        proxy_documento = Proxy(documento_confidencial)
+
+        with patch('builtins.input', return_value=self.usuario_prueba):
+            proxy_documento.acceder(usuario=self.usuario_prueba)
+
+        # Verificar que el acceso se ha registrado en el proxy
+        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+            proxy_documento.mostrar_registros()
+            output = mock_stdout.getvalue()
+
+        self.assertIn(f"Solicitud de acceso de {self.usuario_prueba} al documento {documento_confidencial.nombre}", output)
+            
+    def test_acceso_a_carpeta(self):
+        carpeta_personal = Carpeta("Personal")
+        self.ruta_carpeta.add(carpeta_personal)
+
+        with patch('builtins.input', return_value=self.usuario_prueba):
+            self.ruta_carpeta.acceder(usuario=self.usuario_prueba)
+
+        # Verificar que el acceso se ha registrado en la carpeta
+        self.assertIn(f"Registro de acceso por {self.usuario_prueba} a la carpeta {carpeta_personal.nombre}",
+                      carpeta_personal.accesos_registrados)
+
+if __name__ == '__main__':
+    unittest.main()
+```
