@@ -3,7 +3,7 @@ import os
 import json
 from io import StringIO
 from unittest.mock import patch
-from compositeEstructura import *
+from composite import *
 from proxy import *
 from registros import *
 from guardarArchivos import *

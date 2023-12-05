@@ -8,7 +8,7 @@
         "nombre": "Carpeta1",
         "children": [
           {
-            "nombre": "cosas",
+            "nombre": "Confidencial.txt",
             "tipo": "txt",
             "tamano": 1000
           },
