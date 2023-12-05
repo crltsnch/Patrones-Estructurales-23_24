@@ -1060,3 +1060,14 @@ class TestEstructuraComposite(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 ```
+
+### requirements.txt
+Por último, este archivo contiene una lista de los paquetes y sus versiones que son necesarios para ejecutar la aplicación de manera correcta.
+```
+numpy==1.26.2
+pandas==2.1.3
+python-dateutil==2.8.2
+pytz==2023.3.post1
+six==1.16.0
+tzdata==2023.3
+```
