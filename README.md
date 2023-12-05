@@ -1062,7 +1062,7 @@ if __name__ == '__main__':
 ```
 
 ### requirements.txt
-Por último, este archivo contiene una lista de los paquetes y sus versiones que son necesarios para ejecutar la aplicación de manera correcta.
+Por último, este archivo contiene una lista de los paquetes y sus versiones que son necesarios para ejecutar el proyecto de manera correcta.
 ```
 numpy==1.26.2
 pandas==2.1.3
